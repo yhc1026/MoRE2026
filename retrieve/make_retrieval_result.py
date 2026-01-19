@@ -1,3 +1,7 @@
+# 作用：找到相似视频，然后神经网络的一部分就会通过这些相似视频找到一些共性特征，然后对需要检测的模型集中注意力在这些预期特征上
+# allmodel可以看作一个特殊的“特征”喂给了模型
+
+
 import pandas as pd
 import numpy as np
 import json
@@ -30,7 +34,7 @@ def compute_combined_similarities(query_ids, base_ids, features_dict, labels_dic
         
         # Sum the similarity matrices
         combined_sim = sum(sim_matrices.values())
-        
+
         for j, sim in enumerate(combined_sim):
             query_id = batch_ids[j]
             

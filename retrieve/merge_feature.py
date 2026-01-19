@@ -17,8 +17,8 @@ def merge_feature(dataset_dir: str):
     if "HateMM" not in dataset_dir:
         text_modal_fea.append(torch.load(fea_path / f"fea_title_bert-base-{mtype}.pt", weights_only=True))
     vision_modal_fea = [
-        torch.load(fea_path / "fea_frames_16_back_google-vit-base-16-224.pt", weights_only=True),
-        torch.load(fea_path / "fea_frames_16_front_google-vit-base-16-224.pt", weights_only=True),
+        torch.load(fea_path / "fea_frames_16_back_google-vit-base-16-224.pt", weights_only=True),       #没有
+        torch.load(fea_path / "fea_frames_16_front_google-vit-base-16-224.pt", weights_only=True),      #没有
         torch.load(fea_path / "fea_frames_16_google-vit-base-16-224.pt", weights_only=True),
         torch.load(fea_path / f"fea_caption_bert-base-{mtype}.pt", weights_only=True),
     ]

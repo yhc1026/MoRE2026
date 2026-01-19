@@ -10,7 +10,7 @@
 #
 # dataset_dir = r"D:\code\LAB\MoREBaseline\MoRE\data\HateMM"
 # frames_path = r"\frames"
-# output_file = r"D:\code\LAB\MoREBaseline\MoRE\data\HateMM\fea"
+# output_file = os.path.join(dataset_dir, "fea/fea_frames_16_google-vit-base-16-224.pt")
 # model_id = r"D:\models\vit-base-patch16-224"
 # model = AutoModel.from_pretrained(model_id).to("cuda")
 # processor = AutoProcessor.from_pretrained(model_id)
@@ -70,7 +70,24 @@
 #
 #
 # torch.save(features, output_file)
+#
+#
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# 基础特征
 
 import os
 

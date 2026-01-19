@@ -1,3 +1,5 @@
+# 基本特征，在\data\HateMM_MoRE.py被调用
+
 import librosa
 from transformers import ViTImageProcessor, ViTModel, CLIPVisionModel, CLIPImageProcessor
 from transformers import ChineseCLIPProcessor, ChineseCLIPModel, ChineseCLIPImageProcessor, ChineseCLIPVisionModel, ChineseCLIPTextModel, ChineseCLIPFeatureExtractor

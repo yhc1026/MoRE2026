@@ -1,3 +1,5 @@
+# 不知道是干嘛的
+
 import os
 
 import pandas as pd
@@ -13,7 +15,7 @@ def extract_bert_features(dataset_dir, model_id, output_file):
             vid_file = r"D:\code\LAB\MoREBaseline\MoRE\data\HateMM\vids\vids.csv"
             with open(vid_file, "r") as f:
                 self.vids = [line.strip() for line in f]
-            text_file = os.path.join(dataset_dir, "caption.jsonl")
+            text_file = r"D:\code\LAB\MoRE2026\data\caption.jsonl"
             self.text_df = pd.read_json(text_file, lines=True)
 
         def __len__(self):
@@ -54,16 +56,16 @@ def extract_bert_features(dataset_dir, model_id, output_file):
     torch.save(save_dict, output_file)
 
 
+# extract_bert_features(
+#     "data/MultiHateClip/zh",
+#     "google-bert/bert-base-chinese",
+#     "data/MultiHateClip/zh/fea/fea_caption_bert-base-chinese.pt",
+# )
+# extract_bert_features(
+#     "data/MultiHateClip/en",
+#     "google-bert/bert-base-uncased",
+#     "data/MultiHateClip/en/fea/fea_caption_bert-base-uncased.pt",
+# )
 extract_bert_features(
-    "data/MultiHateClip/zh",
-    "google-bert/bert-base-chinese",
-    "data/MultiHateClip/zh/fea/fea_caption_bert-base-chinese.pt",
-)
-extract_bert_features(
-    "data/MultiHateClip/en",
-    "google-bert/bert-base-uncased",
-    "data/MultiHateClip/en/fea/fea_caption_bert-base-uncased.pt",
-)
-extract_bert_features(
-    "data/HateMM", "google-bert/bert-base-uncased", "data/HateMM/fea/fea_caption_bert-base-uncased.pt"
+    "D:\code\LAB\MoRE2026\data", r"D:\models\bert\bert-base-uncased", r"D:\code\LAB\MoRE2026\data\fea\fea_caption_bert-base-uncased.pt"
 )

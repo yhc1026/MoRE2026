@@ -1,3 +1,6 @@
+# 基础模态，但是感觉不如extract text all feature，猜测这个是给HateMM用的
+
+
 import os
 
 import pandas as pd

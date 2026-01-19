@@ -1,3 +1,7 @@
+# 全模态
+# 基础特征，有些文件HateMM没有，可能是给MultiHate用的（存疑）
+
+
 from transformers import ViTImageProcessor, ViTModel, CLIPVisionModel, CLIPImageProcessor
 from transformers import ChineseCLIPProcessor, ChineseCLIPModel, ChineseCLIPImageProcessor, ChineseCLIPVisionModel, ChineseCLIPTextModel, ChineseCLIPFeatureExtractor
 from transformers import BertModel, BertTokenizer,AutoModel, AutoTokenizer
