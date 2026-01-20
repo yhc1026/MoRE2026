@@ -16,7 +16,7 @@ def extract_bert_features(dataset_dir, model_id, output_file):
             vid_file = r"D:\code\LAB\MoREBaseline\MoRE\data\HateMM\vids\vids.csv"
             with open(vid_file, "r") as f:
                 self.vids = [line.strip() for line in f]
-            text_file = os.path.join(dataset_dir, "speech.jsonl")
+            text_file = r"D:\code\LAB\MoRE2026\data\speech.jsonl"
             self.text_df = pd.read_json(text_file, lines=True)
 
         def __len__(self):
@@ -24,7 +24,11 @@ def extract_bert_features(dataset_dir, model_id, output_file):
 
         def __getitem__(self, index):
             vid = self.vids[index]
-            text = self.text_df[self.text_df["vid"] == vid]["transcript"].values[0]
+            text_arr = self.text_df[self.text_df["vid"] == vid]["transcript"]
+            if len(text_arr) > 0:
+                text=text_arr.values[0]
+            else:
+                text=""
             return vid, text
 
     def customed_collate_fn(batch):
@@ -64,5 +68,5 @@ def extract_bert_features(dataset_dir, model_id, output_file):
 #     "data/MultiHateClip/zh/fea/fea_transcript_bert-base-chinese.pt",
 # )
 extract_bert_features(
-    "data/HateMM", "google-bert/bert-base-uncased", "data/HateMM/fea/fea_transcript_bert-base-uncased.pt"
+    r"D:\code\LAB\MoRE2026\data", r"D:\models\bert\bert-base-uncased", r"D:\code\LAB\MoRE2026\data\fea\fea_transcript_bert-base-uncased.pt"
 )

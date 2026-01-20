@@ -1,4 +1,3 @@
-# 不知道是干嘛的
 
 import os
 import torch
@@ -10,10 +9,10 @@ from transformers import AutoModel, AutoTokenizer
 def extract_bert_features(dataset_dir, model_id, output_file):
     class MyDataset(Dataset):
         def __init__(self, dataset_dir):
-            vid_file = r"D:\code\LAB\MoREBaseline\MoRE\data\HateMM\vids\vids.csv"
+            vid_file = r"D:\code\LAB\MoRE2026\data\vids\vids.csv"
             with open(vid_file, 'r') as f:
                 self.vids = [line.strip() for line in f]
-            text_file = os.path.join(dataset_dir, 'ocr.jsonl')
+            text_file = r"D:\code\LAB\MoRE2026\data\ocr.jsonl"
             self.text_df = pd.read_json(text_file, lines=True)
         
         def __len__(self):
@@ -50,4 +49,4 @@ def extract_bert_features(dataset_dir, model_id, output_file):
 # 使用示例:
 # extract_bert_features('data/MultiHateClip/zh', 'google-bert/bert-base-chinese', 'data/MultiHateClip/zh/fea/fea_ocr_bert-base-chinese.pt')
 # extract_bert_features('data/MultiHateClip/en', 'google-bert/bert-base-uncased', 'data/MultiHateClip/en/fea/fea_ocr_bert-base-uncased.pt')
-extract_bert_features('data/HateMM', 'google-bert/bert-base-uncased', 'data/HateMM/fea/fea_ocr_bert-base-uncased.pt')
+extract_bert_features(r"D:\code\LAB\MoRE2026\data", r"D:\models\bert\bert-base-uncased", r"D:\code\LAB\MoRE2026\data\fea\fea_ocr_bert-base-uncased.pt")

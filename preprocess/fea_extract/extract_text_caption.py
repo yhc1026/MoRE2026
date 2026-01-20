@@ -1,4 +1,3 @@
-# 不知道是干嘛的
 
 import os
 
@@ -12,7 +11,7 @@ from transformers import AutoModel, AutoTokenizer
 def extract_bert_features(dataset_dir, model_id, output_file):
     class MyDataset(Dataset):
         def __init__(self, dataset_dir):
-            vid_file = r"D:\code\LAB\MoREBaseline\MoRE\data\HateMM\vids\vids.csv"
+            vid_file = r"D:\code\LAB\MoRE2026\data\vids\vids.csv"
             with open(vid_file, "r") as f:
                 self.vids = [line.strip() for line in f]
             text_file = r"D:\code\LAB\MoRE2026\data\caption.jsonl"
@@ -66,6 +65,7 @@ def extract_bert_features(dataset_dir, model_id, output_file):
 #     "google-bert/bert-base-uncased",
 #     "data/MultiHateClip/en/fea/fea_caption_bert-base-uncased.pt",
 # )
-extract_bert_features(
-    "D:\code\LAB\MoRE2026\data", r"D:\models\bert\bert-base-uncased", r"D:\code\LAB\MoRE2026\data\fea\fea_caption_bert-base-uncased.pt"
-)
+extract_bert_features("D:\code\LAB\MoRE2026\data",
+                        r"D:\models\bert\bert-base-uncased",
+                        r"D:\code\LAB\MoRE2026\data\fea\fea_caption_bert-base-uncased.pt")
+
