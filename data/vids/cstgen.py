@@ -3,7 +3,7 @@
 import random
 
 # 读取vids.csv文件
-with open(r"D:\code\LAB\MoRE2026\data\vids\vids.csv", "r") as f:
+with open("vids.csv", "r") as f:
     vids = [line.strip() for line in f if line.strip()]
 
 print(f"总视频数量: {len(vids)}")
@@ -27,7 +27,7 @@ valid_vids = vids[test_count:test_count + valid_count]
 train_vids = vids[test_count + valid_count:]
 
 # 保存到CSV文件
-output_dir = r"D:\code\LAB\MoRE2026\data\vids"
+output_dir = "vids"
 
 # 保存训练集
 with open(f"{output_dir}/train.csv", "w") as f:

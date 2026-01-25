@@ -33,7 +33,7 @@ from utils.core_utils import (
 )
 
 
-log_path = Path(f'log/{datetime.now().strftime("%m%d-%H%M%S")}')
+log_path = Path(f'src/log/{datetime.now().strftime("%m%d-%H%M%S")}')
 
 
 class Trainer():
@@ -44,9 +44,9 @@ class Trainer():
         self.device = 'cuda'
         # self.task = cfg.task
         self.task = cfg.data.task
-        if cfg.task == 'binary':
+        if cfg.data.task == 'binary':
             self.evaluator = BinaryClassificationMetric(self.device)
-        elif cfg.task == 'ternary':
+        elif cfg.data.task == 'ternary':
             self.evaluator = TernaryClassificationMetric(self.device)
         else:
             raise ValueError('task not supported')
@@ -72,12 +72,16 @@ class Trainer():
             test_dataset = get_dataset(cfg.model, cfg.general.dataset, fold=fold, split='test', **cfg.data)
         else:
             test_dataset = get_dataset(cfg.model, cfg.dataset, fold=fold, split='test', **cfg.data)
-        if cfg.task == 'binary':
+        if cfg.data.task == 'binary':
             valid_dataset = get_dataset(cfg.model, cfg.dataset, fold=fold, split='valid', **cfg.data)
-        self.train_dataloader = DataLoader(train_dataset, batch_size=cfg.batch_size, collate_fn=self.collator, num_workers=min(32, cfg.batch_size//2), shuffle=True, generator=self.generator, worker_init_fn=lambda worker_id: set_worker_seed(worker_id, cfg.seed))
-        self.test_dataloader = DataLoader(test_dataset, batch_size=cfg.batch_size, collate_fn=self.collator, num_workers=min(32, cfg.batch_size//2), shuffle=False, generator=self.generator, worker_init_fn=lambda worker_id: set_worker_seed(worker_id, cfg.seed))
-        if cfg.task == 'binary':
-            self.valid_dataloader = DataLoader(valid_dataset, batch_size=cfg.batch_size, collate_fn=self.collator, num_workers=min(32, cfg.batch_size//2), shuffle=False, generator=self.generator, worker_init_fn=lambda worker_id: set_worker_seed(worker_id, cfg.seed))
+        # self.train_dataloader = DataLoader(train_dataset, batch_size=cfg.batch_size, collate_fn=self.collator, num_workers=min(32, cfg.batch_size//2), shuffle=True, generator=self.generator, worker_init_fn=lambda worker_id: set_worker_seed(worker_id, cfg.seed))
+        # self.test_dataloader = DataLoader(test_dataset, batch_size=cfg.batch_size, collate_fn=self.collator, num_workers=min(32, cfg.batch_size//2), shuffle=False, generator=self.generator, worker_init_fn=lambda worker_id: set_worker_seed(worker_id, cfg.seed))
+        self.train_dataloader = DataLoader(train_dataset, batch_size=cfg.batch_size, collate_fn=self.collator,num_workers=0, shuffle=True,generator=self.generator,worker_init_fn=lambda worker_id: set_worker_seed(worker_id, cfg.seed))
+        self.test_dataloader = DataLoader(test_dataset, batch_size=cfg.batch_size, collate_fn=self.collator, num_workers=0, shuffle=False, generator=self.generator, worker_init_fn=lambda worker_id: set_worker_seed(worker_id, cfg.seed))
+
+        if cfg.data.task == 'binary':
+           # self.valid_dataloader = DataLoader(valid_dataset, batch_size=cfg.batch_size, collate_fn=self.collator, num_workers=min(32, cfg.batch_size//2), shuffle=False, generator=self.generator, worker_init_fn=lambda worker_id: set_worker_seed(worker_id, cfg.seed))
+            self.valid_dataloader = DataLoader(valid_dataset, batch_size=cfg.batch_size, collate_fn=self.collator,num_workers=0, shuffle=False,generator=self.generator,worker_init_fn=lambda worker_id: set_worker_seed(worker_id, cfg.seed))
 
         steps_per_epoch = math.ceil(len(train_dataset) / cfg.batch_size)
         self.model = load_model(cfg.model, **dict(cfg.para))
@@ -215,8 +219,14 @@ class Trainer():
                 raise ValueError('task not supported')
         return metrics
 
-@hydra.main(version_base=None, config_path="config")
+# @hydra.main(version_base=None, config_path=r"D:\code\LAB\MoRE2026\src\config\HateMM_MoRE.yaml")
+@hydra.main(version_base=None, config_path="config", config_name="HateMM_MoRE")
 def main(cfg: DictConfig):
+    print("=== 配置调试信息 ===")
+    print(f"cfg 类型: {type(cfg)}")
+    print(f"cfg 所有键: {list(cfg.keys())}")
+    print(f"是否有 'seed': {'seed' in cfg}")
+    print(f"cfg.seed 值: {cfg.get('seed', 'NOT FOUND')}")
     logger.remove()
     logger.add(log_path / 'log.log', retention="10 days", level="DEBUG")
     logger.add(sys.stdout, level="INFO")

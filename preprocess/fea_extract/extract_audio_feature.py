@@ -13,21 +13,15 @@ import numpy as np
 import torch
 
 
-dataset_dir = r"D:\code\LAB\MoRE2026\data"
-output_file = os.path.join(dataset_dir, r'fea\fea_audio_mfcc.pt')
+dataset_dir = "data"
+output_file = os.path.join(dataset_dir, 'data/fea/fea_audio_mfcc.pt')
 
-
-# model_id = "google-bert/bert-base-uncased"
-
-# model = AutoModel.from_pretrained("google-bert/bert-base-chinese", device_map='cuda')
-# processor = AutoTokenizer.from_pretrained("google-bert/bert-base-chinese")
-# model = AutoModel.from_pretrained(model_id, device_map='cuda')
-# processor = AutoTokenizer.from_pretrained(model_id)
-
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+print("device:", device)
 
 class MyDataset(Dataset):
     def __init__(self):
-        vid_file = r"D:\code\LAB\MoRE2026\data\vids\vids.csv"
+        vid_file = "data/vids/vids.csv"
         # each line of vid_file a vid
         with open(vid_file, 'r') as f:
             self.vids = [line.strip() for line in f]
@@ -55,21 +49,22 @@ for batch in tqdm(dataloader):
         vids, audio_files = batch
         vid, audio_file = vids[0], audio_files[0]
         if not os.path.exists(audio_file):
-            pooler_output = torch.zeros(128)
+            # pooler_output = torch.zeros(128)
+            pooler_output = torch.zeros(128).to(device)
         else:
             y, sr = librosa.load(audio_file, sr=None)
             mfccs = librosa.feature.mfcc(y=y, sr=sr, n_mfcc=128)
             mfccs = mfccs.T
             # to tensor and mean in time axis
-            mfccs = torch.tensor(mfccs).mean(dim=0)
+            # mfccs = torch.tensor(mfccs).mean(dim=0)
+            mfccs = torch.tensor(mfccs).mean(dim=0).to(device)
             # print(f'vid: {vid}, mfccs.shape: {mfccs.shape}')
 
             pooler_output = mfccs
             # process outputs
-        save_dict[vid] = pooler_output
+        # save_dict[vid] = pooler_output
+        save_dict[vid] = pooler_output.cpu()
 
-# save_dict to pickle
-# torch.save(save_dict, os.path.join(output_dir, 'bert_chinese_tensor_512_hid.pt'))
 torch.save(save_dict, output_file)
 
 

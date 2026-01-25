@@ -3,12 +3,12 @@ import csv
 # 生成视频名称列表
 video_names = []
 
-# hate_video_1 到 hate_video_102
-for i in range(1, 103):
+# hate_video_1 到 hate_video_431
+for i in range(1, 432):
     video_names.append(f"hate_video_{i}")
 
-# non_hate_video_1 到 non_hate_video_168
-for i in range(1, 169):
+# non_hate_video_1 到 non_hate_video_652
+for i in range(1, 653):
     video_names.append(f"non_hate_video_{i}")
 
 # 写入 CSV 文件，每行一个视频名称

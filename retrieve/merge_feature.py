@@ -1,5 +1,5 @@
 from pathlib import Path
-
+import os
 import pandas as pd
 import torch
 from tqdm import tqdm
@@ -12,21 +12,21 @@ def merge_feature(dataset_dir: str):
     # else:
     #     mtype = "uncased"
     text_modal_fea = [
-        torch.load(fea_path / f"fea_ocr_bert-base-uncased.pt", weights_only=True),#有了      #mtype
+        torch.load("data/fea/fea_ocr_bert-base-uncased.pt", weights_only=True),#有了      #mtype
     ]
     # if "HateMM" not in dataset_dir:
     #     text_modal_fea.append(torch.load(fea_path / f"fea_title_bert-base-uncased.pt", weights_only=True))      #mtype
     vision_modal_fea = [
-        torch.load(fea_path / "fea_frames_16_back_google-vit-base-16-224.pt", weights_only=True),  #有了
-        torch.load(fea_path / "fea_frames_16_front_google-vit-base-16-224.pt", weights_only=True),  #有了
-        torch.load(fea_path / "fea_frames_16_google-vit-base-16-224.pt", weights_only=True),  #有了
-        torch.load(fea_path / f"fea_caption_bert-base-uncased.pt", weights_only=True),#有了      #mtype
+        torch.load("data/fea/fea_frames_16_back_google-vit-base-16-224.pt", weights_only=True),  #有了
+        torch.load("data/fea/fea_frames_16_front_google-vit-base-16-224.pt", weights_only=True),  #有了
+        torch.load("data/fea/fea_frames_16_google-vit-base-16-224.pt", weights_only=True),  #有了
+        torch.load("data/fea/fea_caption_bert-base-uncased.pt", weights_only=True),#有了      #mtype
     ]
     audio_model_fea = [
-        torch.load(fea_path / "fea_audio_mfcc.pt", weights_only=True),  #有了
-        torch.load(fea_path / f"fea_transcript_bert-base-uncased.pt", weights_only=True),  #有了      #mtype
+        torch.load("data/fea/fea_audio_mfcc.pt", weights_only=True),  #有了
+        torch.load("data/fea/fea_transcript_bert-base-uncased.pt", weights_only=True),  #有了      #mtype
     ]
-    vid_path = r"D:\code\LAB\MoRE2026\data\vids\vids.csv"
+    vid_path = "data/vids/vids.csv"
     vids = pd.read_csv(vid_path, header=None)[0].tolist()
     text_fea_dict = {}
     vision_fea_dict = {}
@@ -54,9 +54,9 @@ def merge_feature(dataset_dir: str):
         vision_fea_dict[vid] = torch.concat(vision_fea, dim=0)
         audio_fea_dict[vid] = torch.concat(audio_fea, dim=0)
         # save to file
-        torch.save(text_fea_dict, r"/data/fea/retrievalPT/fea_text_modal_retrieval.pt")
-        torch.save(vision_fea_dict, r"/data/fea/retrievalPT/fea_vision_modal_retrieval.pt")
-        torch.save(audio_fea_dict, r"/data/fea/retrievalPT/fea_audio_modal_retrieval.pt")
+        torch.save(text_fea_dict, "data/fea/retrievalPT/fea_text_modal_retrieval.pt")
+        torch.save(vision_fea_dict, "data/fea/retrievalPT/fea_vision_modal_retrieval.pt")
+        torch.save(audio_fea_dict, "data/fea/retrievalPT/fea_audio_modal_retrieval.pt")
 
 
-merge_feature("D:/code/LAB/MoRE2026/data")
+merge_feature("data")

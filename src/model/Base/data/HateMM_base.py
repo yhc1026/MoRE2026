@@ -9,7 +9,7 @@ class HateMM_Dataset(Dataset):
         super(HateMM_Dataset, self).__init__()
 
     def _get_data(self, fold: int, split: str, task: str):
-        data = pd.read_csv('data/HateMM/HateMM_annotation.csv')
+        data = pd.read_csv("data/vids/HateMM_annotation.csv")
         if task == 'binary':
             pass
         else:
@@ -30,7 +30,7 @@ class HateMM_Dataset(Dataset):
         return data
 
     def _get_default_data(self, data, split):
-        vid_file = f'data/HateMM/vids/{split}.csv'
+        vid_file = f"data/vids/{split}.csv"
         vids = pd.read_csv(vid_file, header=None)[0].tolist()
         data = data[data['vid'].isin(vids)]
         return data

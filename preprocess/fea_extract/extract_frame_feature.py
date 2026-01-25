@@ -72,7 +72,7 @@
 # torch.save(features, output_file)
 #
 #
-
+#
 
 
 
@@ -100,15 +100,15 @@ from tqdm import tqdm
 from transformers import AutoModel, AutoProcessor
 
 # 保留你原有的所有常量定义
-dataset_dir = r"D:\code\LAB\MoRE2026\data"
-frames_path = r"D:\code\LAB\MoRE2026\data\frames_32"
-output_file = r"D:\code\LAB\MoRE2026\data\fea\fea_frames_16_google-vit-base-16-224.pt"
-model_id = r"D:\models\vit-base-patch16-224"
+dataset_dir = "data"
+frames_path = "data/frames_16"
+output_file = "data/fea/fea_frames_16_google-vit-base-16-224.pt"
+model_id = "/root/autodl-tmp/MoRE/MoRE2026-Cloud/models/models--google--vit-base-patch16-224"
 
 # 保留你原有的 Dataset 类定义
 class MyDataset(Dataset):
     def __init__(self):
-        vid_file = r"D:\code\LAB\MoRE2026\data\vids\vids.csv"
+        vid_file = "data/vids/vids.csv"
         with open(vid_file, "r") as f:
             self.vids = [line.strip() for line in f]
 
@@ -144,7 +144,7 @@ if __name__ == '__main__':
 
     # ========== 关键修改2：Windows 下将 num_workers 改为 0（禁用多进程） ==========
     dataset = MyDataset()
-    dataloader = DataLoader(dataset, batch_size=8, shuffle=False, collate_fn=collate_fn, num_workers=0)
+    dataloader = DataLoader(dataset, batch_size=8, shuffle=False, collate_fn=collate_fn, num_workers=8)
     features = {}
 
     with torch.no_grad():

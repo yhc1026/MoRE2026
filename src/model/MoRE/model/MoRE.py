@@ -29,18 +29,33 @@ class ModalityExpert(nn.Module):
         self.alpha = alpha
         self.ablation = ablation
         
+    # def forward(self, query, pos, neg):
+    #     query = self.ffn(query)
+    #     pos = self.ffn(pos)
+    #     neg = self.ffn(neg)
+    #     pos_attn, _ = self.pos_attn(query, pos, pos)
+    #     neg_attn, _ = self.neg_attn(query, neg, neg)
+    #
+    #     ret =  self.alpha * pos_attn + (1 - self.alpha) * neg_attn + query
+    #
+    #     return ret
+
+    # ///////////////////////////////////////////////////////////////////
     def forward(self, query, pos, neg):
+        if query.dim() == 2:
+            query = query.unsqueeze(1)
         query = self.ffn(query)
         pos = self.ffn(pos)
         neg = self.ffn(neg)
-        pos = rearrange(pos, 'b n l d -> b (n l) d')
-        neg = rearrange(neg, 'b n l d -> b (n l) d')
+        if pos.dim() == 4:
+            batch_size = pos.size(0)
+            pos = pos.reshape(batch_size, -1, pos.size(-1))
+            neg = neg.reshape(batch_size, -1, neg.size(-1))
         pos_attn, _ = self.pos_attn(query, pos, pos)
         neg_attn, _ = self.neg_attn(query, neg, neg)
-
-        ret =  self.alpha * pos_attn + (1 - self.alpha) * neg_attn + query
-
+        ret = self.alpha * pos_attn + (1 - self.alpha) * neg_attn + query
         return ret
+    # ///////////////////////////////////////////////////////////////////
 
 class MoRE(nn.Module):
     def __init__(self, text_encoder, fea_dim=768, dropout=0.2, num_head=8, alpha=0.5, delta=0.25, num_epoch=20, ablation='No', loss='No', **kargs):
@@ -81,6 +96,7 @@ class MoRE(nn.Module):
         self.loss = loss
 
     def forward(self,  **inputs):
+
         text_fea = inputs['text_fea']
         audio_fea = inputs['audio_fea']
         vision_fea = inputs['vision_fea']
@@ -90,21 +106,46 @@ class MoRE(nn.Module):
         frame_sim_neg_fea = inputs['vision_sim_neg_fea']
         mfcc_sim_pos_fea = inputs['audio_sim_pos_fea']
         mfcc_sim_neg_fea = inputs['audio_sim_neg_fea']
-    
-        
+
+        # 详细检查视觉特征
+        # if len(vision_fea.shape) == 3:
+        #     batch_size, num_frames, feat_dim = vision_fea.shape
+        #     print(f"视觉特征: batch={batch_size}, frames={num_frames}, feat_dim={feat_dim}")
+        #
+        #     if num_frames == 1:
+        #         print("❌ 致命错误: 视觉特征只有1帧！")
+        #         print("  检查模型预处理层...")
+        #     elif num_frames == 32:
+        #         print("✅ 视觉特征正常: 32帧")
+        #     else:
+        #         print(f"⚠️ 视觉特征异常: {num_frames}帧 (应该是32)")
+        # else:
+        #     print(f"❌ 视觉特征维度异常: {vision_fea.shape} (应该是3D)")
+
+        # 打印前3个样本的详细信息
+        # for i in range(min(3, vision_fea.shape[0])):
+        #     print(f"样本{i}视觉特征: {vision_fea[i].shape}")
+
         vision_fea = self.positional_encoding(vision_fea)
         frame_sim_pos_fea = self.positional_encoding(frame_sim_pos_fea)
         frame_sim_neg_fea = self.positional_encoding(frame_sim_neg_fea)
-        
+
         text_fea_aug = self.text_expert(text_fea, text_sim_pos_fea, text_sim_neg_fea)
         vision_fea_aug = self.vision_expert(vision_fea, frame_sim_pos_fea, frame_sim_neg_fea)
         audio_fea_aug = self.audio_expert(audio_fea, mfcc_sim_pos_fea, mfcc_sim_neg_fea)
-        
-        vision_fea = vision_fea.mean(dim=1, keepdim=True)
 
+        vision_fea = vision_fea.mean(dim=1, keepdim=True)
+        # /////////////////////////////////////////////////////////////////////
+        # /////////////////////////////////////////////////////////////////////
+        # /////////////////////////////////////////////////////////////////////
+        if vision_fea.dim() == 3:
+            vision_fea = vision_fea.squeeze(1)
+        #/////////////////////////////////////////////////////////////////////
+        # /////////////////////////////////////////////////////////////////////
+        # /////////////////////////////////////////////////////////////////////
         router_fea = torch.cat([text_fea, vision_fea, audio_fea], dim=-1)
         weight = self.router(router_fea).squeeze(1)
-        
+
         # text_fea_aug = self.text_pooler(text_fea_aug)
         text_fea_aug = text_fea_aug.mean(dim=1)
         vision_fea_aug = self.vision_pooler(vision_fea_aug)
@@ -113,14 +154,14 @@ class MoRE(nn.Module):
         text_pred = self.text_preditor(text_fea_aug)
         vision_pred = self.vision_preditor(vision_fea_aug)
         audio_pred = self.audio_preditor(audio_fea_aug)
-        
+
         if self.ablation == 'w/o-router':
             fea = (text_fea_aug + vision_fea_aug + audio_fea_aug) / 3
         else:
             fea = (text_fea_aug * weight[:, 0].unsqueeze(1) + vision_fea_aug * weight[:, 1].unsqueeze(1) + audio_fea_aug * weight[:, 2].unsqueeze(1))
-            
+
         output = self.classifier(fea)
-    
+
         return {
             'pred': output,
             'text_pred': text_pred,

@@ -11,10 +11,10 @@ from transformers import AutoModel, AutoTokenizer
 def extract_bert_features(dataset_dir, model_id, output_file):
     class MyDataset(Dataset):
         def __init__(self, dataset_dir):
-            vid_file = r"D:\code\LAB\MoRE2026\data\vids\vids.csv"
+            vid_file = "data/vids/vids.csv"
             with open(vid_file, "r") as f:
                 self.vids = [line.strip() for line in f]
-            text_file = r"D:\code\LAB\MoRE2026\data\caption.jsonl"
+            text_file = "data/caption.jsonl"
             self.text_df = pd.read_json(text_file, lines=True)
 
         def __len__(self):
@@ -24,12 +24,18 @@ def extract_bert_features(dataset_dir, model_id, output_file):
             vid = self.vids[index]
             try:
                 text = self.text_df[self.text_df["vid"] == vid]["text"].values[0]
-            except:
                 print(vid)
-                exit()
-            return vid, text
+                return vid, text
+            except:
+                print(f"vid '{vid}' 在JSONL中不存在，跳过")
+                # 返回特殊标记，让collate_fn处理
+                return vid, None  # 使用特殊标记
 
     def customed_collate_fn(batch):
+        valid_batch = [(vid, text) for vid, text in batch if text is not None]
+        if not valid_batch:
+            # 如果整个batch都无效，返回空数据
+            return [], {}
         vids, texts = zip(*batch)
         inputs = processor(texts, padding="max_length", truncation=True, return_tensors="pt", max_length=512)
         return vids, inputs
@@ -46,6 +52,8 @@ def extract_bert_features(dataset_dir, model_id, output_file):
     for batch in tqdm(dataloader):
         with torch.no_grad():
             vids, inputs = batch
+            if len(vids) == 0:
+                continue
             inputs = inputs.to("cuda")
             pooler_output = model(**inputs)["last_hidden_state"][:, 0, :]
             pooler_output = pooler_output.detach().cpu()
@@ -65,7 +73,9 @@ def extract_bert_features(dataset_dir, model_id, output_file):
 #     "google-bert/bert-base-uncased",
 #     "data/MultiHateClip/en/fea/fea_caption_bert-base-uncased.pt",
 # )
-extract_bert_features("D:\code\LAB\MoRE2026\data",
-                        r"D:\models\bert\bert-base-uncased",
-                        r"D:\code\LAB\MoRE2026\data\fea\fea_caption_bert-base-uncased.pt")
+
+model="/root/autodl-tmp/MoRE/MoRE2026-Cloud/models/bert/bert-base-uncased"
+extract_bert_features("data",
+                        model,
+                        "data/fea/fea_caption_bert-base-uncased.pt")
 

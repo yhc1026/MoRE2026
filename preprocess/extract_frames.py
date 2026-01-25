@@ -11,7 +11,7 @@ import traceback
 def is_valid_video(video_path):
     try:
         result = subprocess.run(
-            [r"D:\ffmpeg-8.0-essentials_build\ffmpeg-8.0-essentials_build\bin\ffprobe.exe", '-v', 'error', '-show_entries', 'format=duration', '-of', 'default=noprint_wrappers=1:nokey=1',
+            ["ffprobe", '-v', 'error', '-show_entries', 'format=duration', '-of', 'default=noprint_wrappers=1:nokey=1',
              video_path], capture_output=True, text=True, check=True)
         duration = float(result.stdout)
         return duration > 0
@@ -21,62 +21,106 @@ def is_valid_video(video_path):
         return False
 
 
-def extract_frame(video_path, timestamp, output_file):
+def extract_frame_cpu(video_path, timestamp, output_file):
     subprocess.run(
-        [r"D:\ffmpeg-8.0-essentials_build\ffmpeg-8.0-essentials_build\bin\ffmpeg.exe", '-loglevel', 'quiet', '-i', video_path, '-ss', str(timestamp), '-frames:v', '1', output_file],
+        ["ffmpeg",
+             '-loglevel',
+             'quiet',
+             '-i',
+            video_path,
+             '-ss',
+             str(timestamp),
+             '-frames:v',
+             '1',
+             output_file],
         check=True)
+
+def extract_frame(video_path: str, timestamp: float, output_file: str):
+    """Extract a frame from a video at a specific timestamp."""
+    cmd = [
+        "ffmpeg",
+        '-hwaccel', 'cuda',  # 只保留这一个 CUDA 参数
+        '-loglevel', 'quiet',
+        '-i', video_path,
+        '-ss', str(timestamp),
+        '-frames:v', '1',
+        output_file  # 让 ffmpeg 自动选择编码器
+    ]
+    subprocess.run(cmd, check=True, capture_output=True)
 
 
 def process_video(video_path, output_folder, num_frames):
     if not is_valid_video(video_path):
-        print(f"Error: Invalid video file: {video_path}")
+        print(f"跳过无效视频: {video_path}")
         return
+
     video_name = os.path.splitext(os.path.basename(video_path))[0]
     video_output_folder = os.path.join(output_folder, video_name)
 
-    # Check if the output folder already contains the specified number of frames
+    # 检查是否已处理
     if os.path.exists(video_output_folder):
         existing_frames = glob.glob(os.path.join(video_output_folder, "frame_*.jpg"))
         if len(existing_frames) == num_frames:
             print(f"Skip video {video_name}: {num_frames} frames already exist")
             return
 
-    # If the folder exists but the number of frames is incorrect, delete and recreate it
+    # 清理旧文件夹
     if os.path.exists(video_output_folder):
         shutil.rmtree(video_output_folder)
-
     os.makedirs(video_output_folder, exist_ok=True)
 
-    # Use ffprobe to get the video duration
-    result = subprocess.run([r"D:\ffmpeg-8.0-essentials_build\ffmpeg-8.0-essentials_build\bin\ffprobe.exe", '-v', 'error', '-show_format', '-i', video_path], capture_output=True,
-                            text=True)
-    duration_line = [line for line in result.stdout.split('\n') if 'duration' in line][0]
-    duration = float(duration_line.split('=')[1])
-
-    if not duration or duration <= 0:
-        print(f"Error: Invalid video duration {video_path}: {duration}")
+    # 获取视频时长
+    try:
+        result = subprocess.run(
+            ["ffprobe",
+             '-v', 'error',
+             '-show_entries', 'format=duration',
+             '-of', 'default=noprint_wrappers=1:nokey=1',
+             video_path],
+            capture_output=True, text=True, timeout=10
+        )
+        duration = float(result.stdout.strip())
+    except:
+        print(f"无法获取时长: {video_path}")
         return
 
-    interval = duration / num_frames
+    if duration <= 0:
+        print(f"无效时长: {video_path}")
+        return
 
-    def extract_frame_with_error_handling(args):
-        video_path, timestamp, output_file = args
-        try:
-            extract_frame(video_path, timestamp, output_file)
-        except Exception as e:
-            print(f"Error occurred while processing frame {output_file}: {str(e)}")
-            traceback.print_exc()
+    # 方案1：使用 fps 过滤器（最稳定）
+    try:
+        # 计算帧间隔（秒）
+        interval = max(0.1, duration) / num_frames
 
-    with ThreadPoolExecutor() as executor:
-        tasks = [(video_path, i * interval, os.path.join(video_output_folder, f"frame_{i:03d}.jpg")) for i in
-                 range(num_frames)]
-        list(executor.map(extract_frame_with_error_handling, tasks))
+        cmd = [
+            'ffmpeg',
+            '-hwaccel', 'cuda',           # GPU解码
+            '-loglevel', 'error',         # 只显示错误
+            '-i', video_path,
+            '-vf', f'fps=1/{interval:.3f}',  # 按时间间隔提取
+            '-frames:v', str(num_frames),
+            '-c:v', 'mjpeg',              # 指定编码器
+            '-q:v', '2',                  # 质量
+            '-vsync', '0',                # 禁用同步
+            '-y',                         # 覆盖
+            os.path.join(video_output_folder, 'frame_%03d.jpg')
+        ]
+
+        result = subprocess.run(cmd, capture_output=True, text=True, timeout=60)
+        if result.returncode == 0:
+            print(f"✓ GPU成功: {video_name}")
+            return True
+        else:
+            print(f"⚠ GPU失败，尝试CPU: {video_name}")
+    except Exception as e:
+        print(f"⚠ GPU异常，尝试CPU: {video_name} - {str(e)[:50]}")
 
 
 def main():
-    num_frames = 32
-    input_folder = r"D:\code\LAB\MoRE2026\data\videos"
-    output_folder = r'D:\code\LAB\MoRE2026\data\frames_{}'.format(num_frames)
+    num_frames = 16
+    input_folder = "data/videos"
+    output_folder = "data/frames_origin_{}".format(num_frames)
 
     if not os.path.exists(input_folder):
         print(f"Error: Input folder does not exist: {input_folder}")

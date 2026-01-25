@@ -21,9 +21,7 @@ def generate_video_captions(input_folder, output_jsonl, model_path):
     model = Blip2ForConditionalGeneration.from_pretrained(
         model_path,
         torch_dtype=torch_dtype,
-        device_map="auto",  # 自动分配到GPU
-        load_in_8bit=False,  # 如果内存很小可以尝试8bit量化
-        load_in_4bit=False  # 或者4bit量化
+        device_map="auto"  # 只保留这个参数
     )
 
     # model.to(device)
@@ -45,11 +43,13 @@ def generate_video_captions(input_folder, output_jsonl, model_path):
     with open(output_path, 'r', encoding='utf-8') as f:
         # 读取所有行
         lines = f.readlines()
-
-        # 获取最后一行（跳过可能的空行）
-        last_line = lines[-1].strip()
-        data = json.loads(last_line)
-        last_vid = data.get('vid')
+        if(len(lines) != 0):
+            # 获取最后一行（跳过可能的空行）
+            last_line = lines[-1].strip()
+            data = json.loads(last_line)
+            last_vid = data.get('vid')
+        else:
+            last_vid = ""
 
     with open(output_path, 'a', encoding='utf-8') as f:
         # 遍历每个视频文件夹
@@ -96,6 +96,7 @@ def generate_video_captions(input_folder, output_jsonl, model_path):
 
                 except Exception as e:
                     print(f"    处理 {frame_path.name} 时出错: {e}")
+                    frame_captions.append("")
 
             # 构建视频级别的JSON记录
             # video_record = {
@@ -105,6 +106,8 @@ def generate_video_captions(input_folder, output_jsonl, model_path):
             #     "combined_caption": " ".join([fc["caption"] for fc in frame_captions])
             # }
             combined_text = " ".join(frame_captions)
+            if combined_text.strip() == "":
+                combined_text = ""  # 确保是空字符串，不是None
             video_record = {
                 "vid": video_name,  # 注意：键名是"vid"不是"video_id"
                 "text": combined_text  # 注意：键名是"text"不是"combined_caption"
@@ -120,7 +123,7 @@ def generate_video_captions(input_folder, output_jsonl, model_path):
 
 
 if __name__ == '__main__':
-    input_folder = r"D:\code\LAB\MoRE2026\data\frames_32"
-    output_jsonl = r"D:\code\LAB\MoRE2026\data\caption.jsonl"
-    model_path = r"D:\models\blip\blip2-opt-2.7b"
+    input_folder = "data/frames_32"
+    output_jsonl = "data/caption.jsonl"
+    model_path = "/root/autodl-tmp/MoRE/MoRE2026-Cloud/models/blip/blip2-opt-2.7b"
     generate_video_captions(input_folder, output_jsonl, model_path)

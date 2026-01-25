@@ -75,7 +75,7 @@ def compute_combined_similarities(query_ids, base_ids, features_dict, labels_dic
 datasets = ['HateMM']
 
 for dataset in datasets:
-    dataset_path = r"D:\code\LAB\MoRE2026\data"
+    dataset_path = "data"
     
     # Load features from three modalities
     feature_files = {
@@ -86,7 +86,7 @@ for dataset in datasets:
     features_dict = {}
     for modality, file_name in feature_files.items():
         #feature = torch.load(r"D:\code\LAB\MoRE2026\data\fea\retrievalP\" + file_name, weights_only=True)
-        feature = torch.load(r"D:\\code\\LAB\\MoRE2026\\data\\fea\\retrievalPT\\" + file_name, weights_only=True)
+        feature = torch.load("data/fea/retrievalPT/" + file_name, weights_only=True)
         # Process features
         for vid, feat in feature.items():
             if len(feat.shape) != 1:
@@ -98,9 +98,9 @@ for dataset in datasets:
     common_vids = set.intersection(*(set(features_dict[modality].keys()) for modality in features_dict))
     
     # Load video IDs
-    train_vids = pd.read_csv(r"D:\code\LAB\MoRE2026\data\vids\train.csv", header=None)[0].tolist()
-    valid_vids = pd.read_csv(r"D:\code\LAB\MoRE2026\data\vids\valid.csv", header=None)[0].tolist()
-    test_vids = pd.read_csv(r"D:\code\LAB\MoRE2026\data\vids\test.csv", header=None)[0].tolist()
+    train_vids = pd.read_csv("data/vids/train.csv", header=None)[0].tolist()
+    valid_vids = pd.read_csv("data/vids/valid.csv", header=None)[0].tolist()
+    test_vids = pd.read_csv("data/vids/test.csv", header=None)[0].tolist()
     train_valid_vids = list(set(train_vids + valid_vids))
     all_vids = list(set(train_valid_vids + test_vids))
     
@@ -113,7 +113,7 @@ for dataset in datasets:
     print(f'Number of base videos: {len(base_ids)}')
     
     # Load labels
-    labels = pd.read_json(r"D:\code\LAB\MoRE2026\data\label.jsonl", lines=True)
+    labels = pd.read_json("data/label.jsonl", lines=True)
     labels_dict = labels.set_index('vid')['label'].to_dict()
     
     # Compute combined similarities
@@ -122,7 +122,7 @@ for dataset in datasets:
     )
     
     # Set output path
-    output_path = r"D:\code\LAB\MoRE2026\data\all_model.jsonl"
+    output_path = "data/all_model.jsonl"
     
     # Save results
     with open(output_path, 'w') as f:

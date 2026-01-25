@@ -9,16 +9,31 @@ from ...Base.data.HateMM_base import HateMM_Dataset
 class HateMM_MoRE_Dataset(HateMM_Dataset):
     def __init__(self, fold: int, split: str, task: str, ablation='No', num_pos=30, num_neg=30, **kargs):
         super(HateMM_MoRE_Dataset, self).__init__()
-        fea_path = Path('data/HateMM/fea')
-        sim_path = Path('data/HateMM/retrieval')
+        fea_path = Path("data/fea")
+        sim_path = Path("data/fea/retrievalPT")
         
         self.data = self._get_data(fold, split, task)
         # main feature
-        self.mfcc_fea = torch.load(fea_path / 'fea_audio_mfcc.pt', weights_only=True)
-        self.text_fea = torch.load(fea_path / 'fea_transcript_bert-base-uncased.pt', weights_only=True)
-        self.frame_fea = torch.load(fea_path / 'fea_frames_16_google-vit-base-16-224.pt', weights_only=True)
+        self.mfcc_fea = torch.load("data/fea/fea_audio_mfcc.pt", weights_only=True)
+        self.text_fea = torch.load("data/fea/fea_transcript_bert-base-uncased.pt", weights_only=True)
+        self.frame_fea = torch.load("data/fea/fea_frames_16_google-vit-base-16-224.pt", weights_only=True)
+        print(f"✅ 加载视觉特征文件完成")
+        print(f"  特征字典中的视频数量: {len(self.frame_fea)}")
+
+        # 随机检查几个样本
+        sample_keys = list(self.frame_fea.keys())[:3]
+        for key in sample_keys:
+            fea_shape = self.frame_fea[key].shape
+            print(f"  样本 '{key}' 的特征形状: {fea_shape}")
+            if len(fea_shape) == 2:
+                print(f"  ⚠️ 问题: 特征应该是3D [frames, dim]，但现在是2D {fea_shape}")
+            elif fea_shape[0] == 16:
+                print(f"  ❌ 问题: 只有16帧，不是32帧!")
+            elif fea_shape[0] == 32:
+                print(f"  ✅ 正确: 32帧")
+        # print(self.frame_fea)
         # similarity
-        self.sim_all_sim = pd.read_json(sim_path / 'all_modal.jsonl', lines=True)
+        self.sim_all_sim = pd.read_json("data/all_model.jsonl", lines=True)
         
         self.ablation = ablation
         self.num_pos = num_pos

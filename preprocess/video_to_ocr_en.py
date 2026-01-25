@@ -116,7 +116,7 @@
 #
 #
 # src_dir = r"D:\code\LAB\MoREBaseline\MoRE\data\HateMM\videos\non_hate_videos"
-# dst_file = r"D:\code\LAB\MoREBaseline\MoRE\data\HateMM\OCRs\non_hate_OCR.jsonl"
+# dst_file = r"D:\code\LAB\MoREBaseline\MoRE\data\HateMM\OCRs\OCR.jsonl"
 #
 # if not os.path.exists(dst_file):
 #     dst_df = pd.DataFrame(columns=["vid", "ocr"])
@@ -447,8 +447,8 @@ def process_single_video(args):
 
 def main():
     # 配置参数
-    src_dir = r"D:\code\LAB\MoREBaseline\MoRE\data\HateMM\videos\non_hate_videos"
-    dst_file = r"D:\code\LAB\MoREBaseline\MoRE\data\HateMM\OCRs\non_hate_OCR.jsonl"
+    src_dir = r"D:\code\LAB\MoRE2026\data\videos"
+    dst_file = r"D:\code\LAB\MoRE2026\data\OCR.jsonl"
 
     # 创建输出目录
     os.makedirs(os.path.dirname(dst_file), exist_ok=True)

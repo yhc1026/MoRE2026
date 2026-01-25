@@ -9,7 +9,7 @@ from torchvision.transforms.functional import normalize
 from tqdm import tqdm
 
 # Load pretrained model
-model = AutoModelForImageSegmentation.from_pretrained(r"D:\models\RMBG", trust_remote_code=True)
+model = AutoModelForImageSegmentation.from_pretrained("/root/autodl-tmp/MoRE/MoRE2026-Cloud/models/RMBG", trust_remote_code=True)
 
 def preprocess_image(im: np.ndarray, model_input_size: list) -> torch.Tensor:
     if len(im.shape) < 3:
@@ -33,9 +33,9 @@ device = torch.device("cuda")
 model.to(device)
 
 # Set input and output directories
-input_dir = r"D:\code\LAB\MoRE2026\data\frames_32"
-output_front_dir = r"D:\code\LAB\MoRE2026\data\frames_32_front"
-output_back_dir = r"D:\code\LAB\MoRE2026\data\frames_32_back"
+input_dir = "data/frames_16"
+output_front_dir = "data/frames_16_front"
+output_back_dir = "data/frames_16_back"
 
 # Ensure output directories exist
 os.makedirs(output_front_dir, exist_ok=True)

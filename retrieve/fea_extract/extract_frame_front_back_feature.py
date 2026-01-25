@@ -82,10 +82,10 @@ from transformers import AutoModel, AutoProcessor
 
 
 
-dataset_dir = r"D:\code\LAB\MoRE2026\data"
-frames_path = "frames_32_back"
-output_file = r"D:\code\LAB\MoRE2026\data\fea\fea_frames_16_back_google-vit-base-16-224.pt"
-model_id = r"D:\models\models--google--vit-base-patch16-224"
+dataset_dir = "data"
+frames_path = "frames_16_front"
+output_file = "data/fea/fea_frames_16_front_google-vit-base-16-224.pt"
+model_id = "/root/autodl-tmp/MoRE/MoRE2026-Cloud/models/models--google--vit-base-patch16-224"
 # model = AutoModel.from_pretrained(model_id, device_map="cuda")
 # processor = AutoProcessor.from_pretrained(model_id)
 model = AutoModel.from_pretrained(model_id).to("cuda")
@@ -94,7 +94,7 @@ processor = AutoProcessor.from_pretrained(model_id)
 
 class MyDataset(Dataset):
     def __init__(self):
-        vid_file = r"D:\code\LAB\MoRE2026\data\vids\vids.csv"
+        vid_file = "data/vids/vids.csv"
         with open(vid_file, "r") as f:
             self.vids = [line.strip() for line in f]
 
