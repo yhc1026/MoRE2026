@@ -18,6 +18,7 @@ from omegaconf import DictConfig, OmegaConf
 from torch.utils.data import DataLoader, Dataset
 from tqdm import tqdm
 from pathlib import Path
+#import winsound
 
 from utils.core_utils import (
     get_collator,
@@ -135,6 +136,7 @@ class Trainer():
         logger.info(f'Best of B F1 in all fold: {np.mean(b_f1_list)}, Best B Precision: {np.mean(b_prec_list)}, Best B Recall: {np.mean(b_rec_list)}')
         if self.task == 'ternary':
             logger.info(f'Best of C F1 in all fold: {np.mean(c_f1_list)}, Best C Precision: {np.mean(c_prec_list)}, Best C Recall: {np.mean(c_rec_list)}')
+        #winsound.Beep(500, 1000)
             
     def _train(self, epoch: int):
         loss_list =  []
@@ -222,11 +224,6 @@ class Trainer():
 # @hydra.main(version_base=None, config_path=r"D:\code\LAB\MoRE2026\src\config\HateMM_MoRE.yaml")
 @hydra.main(version_base=None, config_path="config", config_name="HateMM_MoRE")
 def main(cfg: DictConfig):
-    print("=== 配置调试信息 ===")
-    print(f"cfg 类型: {type(cfg)}")
-    print(f"cfg 所有键: {list(cfg.keys())}")
-    print(f"是否有 'seed': {'seed' in cfg}")
-    print(f"cfg.seed 值: {cfg.get('seed', 'NOT FOUND')}")
     logger.remove()
     logger.add(log_path / 'log.log', retention="10 days", level="DEBUG")
     logger.add(sys.stdout, level="INFO")

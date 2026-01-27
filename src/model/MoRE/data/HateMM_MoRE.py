@@ -20,18 +20,6 @@ class HateMM_MoRE_Dataset(HateMM_Dataset):
         print(f"✅ 加载视觉特征文件完成")
         print(f"  特征字典中的视频数量: {len(self.frame_fea)}")
 
-        # 随机检查几个样本
-        sample_keys = list(self.frame_fea.keys())[:3]
-        for key in sample_keys:
-            fea_shape = self.frame_fea[key].shape
-            print(f"  样本 '{key}' 的特征形状: {fea_shape}")
-            if len(fea_shape) == 2:
-                print(f"  ⚠️ 问题: 特征应该是3D [frames, dim]，但现在是2D {fea_shape}")
-            elif fea_shape[0] == 16:
-                print(f"  ❌ 问题: 只有16帧，不是32帧!")
-            elif fea_shape[0] == 32:
-                print(f"  ✅ 正确: 32帧")
-        # print(self.frame_fea)
         # similarity
         self.sim_all_sim = pd.read_json("data/all_model.jsonl", lines=True)
         

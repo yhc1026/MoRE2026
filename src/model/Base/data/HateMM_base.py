@@ -10,10 +10,6 @@ class HateMM_Dataset(Dataset):
 
     def _get_data(self, fold: int, split: str, task: str):
         data = pd.read_csv("data/vids/HateMM_annotation.csv")
-        if task == 'binary':
-            pass
-        else:
-            raise NotImplementedError(f"Invalid task: {task}")
         replace_vaule = {
             'Hate': 1,
             'Non Hate': 0,
@@ -37,6 +33,7 @@ class HateMM_Dataset(Dataset):
 
     def _get_fold_data(self, data, fold: int, split: str):
         train_size, val_size, test_size = 0.7, 0.1, 0.2
+        # train_size, val_size, test_size = 0.6, 0.1, 0.3
         seed = 2024
         target_column = 'label'
         data_split = {}

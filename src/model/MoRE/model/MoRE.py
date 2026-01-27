@@ -5,6 +5,7 @@ import math
 from transformers import AutoModel
 from einops import rearrange
 
+
 from .submodule import LearnablePositionalEncoding, check_shape, AttentivePooling
 
 
@@ -28,20 +29,9 @@ class ModalityExpert(nn.Module):
         self.neg_attn = nn.MultiheadAttention(embed_dim=hid_dim, num_heads=num_head, dropout=dropout, batch_first=True)
         self.alpha = alpha
         self.ablation = ablation
-        
-    # def forward(self, query, pos, neg):
-    #     query = self.ffn(query)
-    #     pos = self.ffn(pos)
-    #     neg = self.ffn(neg)
-    #     pos_attn, _ = self.pos_attn(query, pos, pos)
-    #     neg_attn, _ = self.neg_attn(query, neg, neg)
-    #
-    #     ret =  self.alpha * pos_attn + (1 - self.alpha) * neg_attn + query
-    #
-    #     return ret
 
-    # ///////////////////////////////////////////////////////////////////
     def forward(self, query, pos, neg):
+        print(f"query: {query.shape()}, \n pos: {pos.shape()}, \n neg: {neg.shape()}")
         if query.dim() == 2:
             query = query.unsqueeze(1)
         query = self.ffn(query)
@@ -55,7 +45,154 @@ class ModalityExpert(nn.Module):
         neg_attn, _ = self.neg_attn(query, neg, neg)
         ret = self.alpha * pos_attn + (1 - self.alpha) * neg_attn + query
         return ret
-    # ///////////////////////////////////////////////////////////////////
+
+class _TwoLayerAdapter(nn.Module):
+    def __init__(self, out_dim, dropout):
+        super().__init__()
+        self.net = nn.Sequential(
+            nn.LazyLinear(out_dim),    # 使用LazyLinear
+            nn.GELU(),
+            nn.Dropout(dropout),
+            nn.LazyLinear(out_dim),    # 使用LazyLinear
+        )
+        self.norm = nn.LayerNorm(out_dim)
+
+    def forward(self, x):
+        # 确保残差连接的维度匹配
+        out = self.net(x)
+        # 检查是否可以加残差（需要维度匹配）
+        if x.size(-1) == out.size(-1):
+            out = out + x
+        return self.norm(out)
+
+class _FeedForward(nn.Module):
+    def __init__(self, dim, dropout):
+        super().__init__()
+        self.net = nn.Sequential(
+            nn.LazyLinear(dim * 4),    # 使用LazyLinear
+            nn.GELU(),
+            nn.Dropout(dropout),
+            nn.LazyLinear(dim),        # 使用LazyLinear
+            nn.Dropout(dropout),
+        )
+        self.norm = nn.LayerNorm(dim)
+
+    def forward(self, x):
+        return self.norm(x + self.net(x))
+
+class TextExpert(nn.Module):
+    def __init__(self, hid_dim, dropout, num_head, alpha):
+        super().__init__()
+        self.hid_dim = hid_dim
+        self.dim_adapter = _TwoLayerAdapter(hid_dim, dropout=dropout)  # 不指定输入维度
+        self.pos_attn = nn.MultiheadAttention(embed_dim=hid_dim, num_heads=num_head, dropout=dropout, batch_first=True)
+        self.neg_attn = nn.MultiheadAttention(embed_dim=hid_dim, num_heads=num_head, dropout=dropout, batch_first=True)
+        self.attn_norm = nn.LayerNorm(hid_dim)
+        self.ff = _FeedForward(hid_dim, dropout=dropout)
+        self.alpha = alpha
+        self.dropout = nn.Dropout(dropout)
+
+    def forward(self, query, pos, neg):
+        if query.dim() == 2:
+            query = query.unsqueeze(1)
+
+        # LazyLinear会在第一次运行时自动确定输入维度
+        query = self.dim_adapter(query)
+        pos = self.dim_adapter(pos)
+        neg = self.dim_adapter(neg)
+
+        # attention blocks with residual & norm
+        pos_attn, _ = self.pos_attn(query, pos, pos)
+        neg_attn, _ = self.neg_attn(query, neg, neg)
+
+        mixed = self.alpha * pos_attn + (1 - self.alpha) * neg_attn
+        out = self.attn_norm(self.dropout(mixed) + query)
+        out = self.ff(out)
+
+        return out
+
+class VisionExpert(nn.Module):
+    def __init__(self, hid_dim, dropout, num_head, alpha):
+        super().__init__()
+        self.hid_dim = hid_dim
+        self.dim_adapter = _TwoLayerAdapter(hid_dim, dropout=dropout)
+        self.pos_encoding = LearnablePositionalEncoding(hid_dim, max_len=32)
+        self.frame_attention = nn.MultiheadAttention(embed_dim=hid_dim, num_heads=num_head, dropout=dropout, batch_first=True)
+
+        self.pos_attn = nn.MultiheadAttention(embed_dim=hid_dim, num_heads=num_head, dropout=dropout, batch_first=True)
+        self.neg_attn = nn.MultiheadAttention(embed_dim=hid_dim, num_heads=num_head, dropout=dropout, batch_first=True)
+
+        self.attn_norm = nn.LayerNorm(hid_dim)
+        self.ff = _FeedForward(hid_dim, dropout=dropout)
+        self.alpha = alpha
+        self.dropout = nn.Dropout(dropout)
+
+    def forward(self, query, pos, neg):
+        # adapter (LazyLinear自动适配维度)
+        query = self.dim_adapter(query)
+        pos = self.dim_adapter(pos)
+        neg = self.dim_adapter(neg)
+
+        # positional encoding + frame-level self-attention
+        query = self.pos_encoding(query)
+        query_att, _ = self.frame_attention(query, query, query)
+        query = self.attn_norm(self.dropout(query_att) + query)
+
+        batch = query.size(0)
+        # support both (B, N, T, C) or (B, L, C) for pos/neg
+        if pos.dim() == 4:
+            b, num_pos, t, c = pos.size()
+            pos = pos.view(b, num_pos * t, c)
+        if neg.dim() == 4:
+            b, num_neg, t, c = neg.size()
+            neg = neg.view(b, num_neg * t, c)
+
+        pos_attn, _ = self.pos_attn(query, pos, pos)
+        neg_attn, _ = self.neg_attn(query, neg, neg)
+
+        mixed = self.alpha * pos_attn + (1 - self.alpha) * neg_attn
+        out = self.attn_norm(self.dropout(mixed) + query)
+        out = self.ff(out)
+        print(f"Vision out: {out.shape}")
+        return out
+
+class AudioExpert(nn.Module):
+    def __init__(self, hid_dim, dropout, num_head, alpha):
+        super().__init__()
+        self.hid_dim = hid_dim
+        # 总是使用TwoLayerAdapter，让LazyLinear自动处理维度
+        self.dim_adapter = _TwoLayerAdapter(hid_dim, dropout=dropout)
+        self.pos_encoding = LearnablePositionalEncoding(hid_dim, max_len=500)
+        self.temporal_attention = nn.MultiheadAttention(embed_dim=hid_dim, num_heads=num_head, dropout=dropout, batch_first=True)
+        self.pos_attn = nn.MultiheadAttention(embed_dim=hid_dim, num_heads=num_head, dropout=dropout, batch_first=True)
+        self.neg_attn = nn.MultiheadAttention(embed_dim=hid_dim, num_heads=num_head, dropout=dropout, batch_first=True)
+
+        self.attn_norm = nn.LayerNorm(hid_dim)
+        self.ff = _FeedForward(hid_dim, dropout=dropout)
+        self.alpha = alpha
+        self.dropout = nn.Dropout(dropout)
+
+    def forward(self, query, pos, neg):
+        # adapter (LazyLinear自动适配维度)
+        query = self.dim_adapter(query)
+        pos = self.dim_adapter(pos)
+        neg = self.dim_adapter(neg)
+
+        if query.dim() == 2:
+            query = query.unsqueeze(1)
+
+        query = self.pos_encoding(query)
+        query_att, _ = self.temporal_attention(query, query, query)
+        query = self.attn_norm(self.dropout(query_att) + query)
+
+        pos_attn, _ = self.pos_attn(query, pos, pos)
+        neg_attn, _ = self.neg_attn(query, neg, neg)
+
+        mixed = self.alpha * pos_attn + (1 - self.alpha) * neg_attn
+        out = self.attn_norm(self.dropout(mixed) + query)
+        out = self.ff(out)
+        print(f"Audio out: {out.shape}")
+        return out
 
 class MoRE(nn.Module):
     def __init__(self, text_encoder, fea_dim=768, dropout=0.2, num_head=8, alpha=0.5, delta=0.25, num_epoch=20, ablation='No', loss='No', **kargs):
@@ -69,9 +206,13 @@ class MoRE(nn.Module):
         self.vision_ffn = nn.LazyLinear(fea_dim)
         self.audio_ffn = nn.LazyLinear(fea_dim)
 
-        self.text_expert = ModalityExpert(fea_dim, dropout, num_head, alpha, ablation)
-        self.vision_expert = ModalityExpert(fea_dim, dropout, num_head, alpha, ablation)
-        self.audio_expert = ModalityExpert(fea_dim, dropout, num_head, alpha, ablation)
+        # self.text_expert = ModalityExpert(fea_dim, dropout, num_head, alpha, ablation)
+        # self.vision_expert = ModalityExpert(fea_dim, dropout, num_head, alpha, ablation)
+        # self.audio_expert = ModalityExpert(fea_dim, dropout, num_head, alpha, ablation)
+
+        self.text_expert = TextExpert(fea_dim, dropout, num_head, alpha)
+        self.vision_expert = VisionExpert(fea_dim, dropout, num_head, alpha)
+        self.audio_expert = AudioExpert(fea_dim, dropout, num_head, alpha)
         
         self.positional_encoding = LearnablePositionalEncoding(768, 16)
         
@@ -107,25 +248,6 @@ class MoRE(nn.Module):
         mfcc_sim_pos_fea = inputs['audio_sim_pos_fea']
         mfcc_sim_neg_fea = inputs['audio_sim_neg_fea']
 
-        # 详细检查视觉特征
-        # if len(vision_fea.shape) == 3:
-        #     batch_size, num_frames, feat_dim = vision_fea.shape
-        #     print(f"视觉特征: batch={batch_size}, frames={num_frames}, feat_dim={feat_dim}")
-        #
-        #     if num_frames == 1:
-        #         print("❌ 致命错误: 视觉特征只有1帧！")
-        #         print("  检查模型预处理层...")
-        #     elif num_frames == 32:
-        #         print("✅ 视觉特征正常: 32帧")
-        #     else:
-        #         print(f"⚠️ 视觉特征异常: {num_frames}帧 (应该是32)")
-        # else:
-        #     print(f"❌ 视觉特征维度异常: {vision_fea.shape} (应该是3D)")
-
-        # 打印前3个样本的详细信息
-        # for i in range(min(3, vision_fea.shape[0])):
-        #     print(f"样本{i}视觉特征: {vision_fea[i].shape}")
-
         vision_fea = self.positional_encoding(vision_fea)
         frame_sim_pos_fea = self.positional_encoding(frame_sim_pos_fea)
         frame_sim_neg_fea = self.positional_encoding(frame_sim_neg_fea)
@@ -135,14 +257,8 @@ class MoRE(nn.Module):
         audio_fea_aug = self.audio_expert(audio_fea, mfcc_sim_pos_fea, mfcc_sim_neg_fea)
 
         vision_fea = vision_fea.mean(dim=1, keepdim=True)
-        # /////////////////////////////////////////////////////////////////////
-        # /////////////////////////////////////////////////////////////////////
-        # /////////////////////////////////////////////////////////////////////
         if vision_fea.dim() == 3:
             vision_fea = vision_fea.squeeze(1)
-        #/////////////////////////////////////////////////////////////////////
-        # /////////////////////////////////////////////////////////////////////
-        # /////////////////////////////////////////////////////////////////////
         router_fea = torch.cat([text_fea, vision_fea, audio_fea], dim=-1)
         weight = self.router(router_fea).squeeze(1)
 
@@ -155,11 +271,14 @@ class MoRE(nn.Module):
         vision_pred = self.vision_preditor(vision_fea_aug)
         audio_pred = self.audio_preditor(audio_fea_aug)
 
-        if self.ablation == 'w/o-router':
-            fea = (text_fea_aug + vision_fea_aug + audio_fea_aug) / 3
-        else:
-            fea = (text_fea_aug * weight[:, 0].unsqueeze(1) + vision_fea_aug * weight[:, 1].unsqueeze(1) + audio_fea_aug * weight[:, 2].unsqueeze(1))
 
+        #消融实验
+        # if self.ablation == 'w/o-router':
+        #     fea = (text_fea_aug + vision_fea_aug + audio_fea_aug) / 3
+        # else:
+        #     fea = (text_fea_aug * weight[:, 0].unsqueeze(1) + vision_fea_aug * weight[:, 1].unsqueeze(1) + audio_fea_aug * weight[:, 2].unsqueeze(1))
+
+        fea = (text_fea_aug * weight[:, 0].unsqueeze(1) + vision_fea_aug * weight[:, 1].unsqueeze(1) + audio_fea_aug *weight[:, 2].unsqueeze(1))
         output = self.classifier(fea)
 
         return {
