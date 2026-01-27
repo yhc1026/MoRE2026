@@ -2,3 +2,7 @@
 *.jpg
 *.mp4
 *.log
+*.pyc
+*.xml
+.pth
+/model
