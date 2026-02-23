@@ -1,0 +1,40 @@
+2026-02-23 19:16:22.404 | INFO     | __main__:main:1220 - data:
+  task: binary
+  text_encoder: D:/code/LAB/my_MoRE_cloud/MoRE2026-Cloud/models/bert/bert-base-uncased
+  num_pos: 30
+  num_neg: 90
+para:
+  text_encoder: D:/code/LAB/my_MoRE_cloud/MoRE2026-Cloud/models/bert/bert-base-uncased
+  fea_dim: 64
+  num_epoch: 50
+  delta: 0.4
+  alpha: 0.6
+  num_pos: 30
+  num_neg: 90
+  dropout: 0.3
+  use_radar: true
+  radar_at_test: true
+  memory_size: 1024
+  entropy_threshold: 0.1
+  num_retrieve: 3
+  align_loss_weight: 0.5
+  self_train_temperature: 0.2
+  pseudo_alpha: 0.7
+  pseudo_beta: 0.3
+  use_pseudo_label: false
+  history_size: 2048
+opt:
+  name: AdamW
+  lr: 0.0007
+  weight_decay: 0.002
+sche:
+  name: DummyLR
+num_epoch: 50
+batch_size: 128
+seed: 2024
+model: MoRE
+dataset: HateMM
+type: default
+patience: 7
+
+2026-02-23 19:16:22.412 | INFO     | __main__:main:1227 - [32mUsing RADAR-enhanced Trainer

@@ -1,0 +1,156 @@
+#云服务器
+#hydra:
+#  output_subdir: null
+#  run:
+#    dir: /tmp
+#train:
+#data:
+#  task: binary
+#  text_encoder: "/root/autodl-tmp/MoRE/MoRE2026-Cloud/models/bert/bert-base-uncased"
+#  num_pos: 30
+#  num_neg: 90
+#para:
+#  text_encoder: "/root/autodl-tmp/MoRE/MoRE2026-Cloud/models/bert/bert-base-uncased"
+#  fea_dim: 128
+#  num_epoch: 50
+#  delta: 0.25
+#  alpha: 0.8
+#  num_pos: 30
+#  num_neg: 90
+#opt:
+#  name: AdamW
+#  lr: 3e-4
+#  weight_decay: 5e-5
+#sche:
+#  name: DummyLR
+#
+#num_epoch: 50
+#batch_size: 128
+#seed: 2024
+#model: MoRE
+#dataset: HateMM
+#type: default
+#patience: 5
+
+#2026-01-26 18:10:22.830 | INFO     | __main__:run:134 - Best of Acc in all fold: 0.8202764987945557, Best F1: 0.811820387840271, Best Precision: 0.8139097690582275, Best Recall: 0.8100795745849609
+#2026-01-26 18:10:22.831 | INFO     | __main__:run:135 - Best of A F1 in all fold: 0.8517110347747803, Best A Precision: 0.8421052694320679, Best A Recall: 0.8615384697914124
+#2026-01-26 18:10:22.831 | INFO     | __main__:run:136 - Best of B F1 in all fold: 0.7719298005104065, Best B Precision: 0.7857142686843872, Best B Recall: 0.7586206793785095
+
+
+#本地，未修改
+#hydra:
+#  output_subdir: null
+#  run:
+#    dir: /tmp
+#train:
+#data:
+#  task: binary
+#  text_encoder: D:/code/LAB/my_MoRE_cloud/MoRE2026-Cloud/models/bert/bert-base-uncased
+#  num_pos: 30
+#  num_neg: 90
+#para:
+#  text_encoder: D:/code/LAB/my_MoRE_cloud/MoRE2026-Cloud/models/bert/bert-base-uncased
+#  fea_dim: 128
+#  num_epoch: 50
+#  delta: 0.25
+#  alpha: 0.8
+#  num_pos: 30
+#  num_neg: 90
+#opt:
+#  name: AdamW
+#  lr: 3e-4
+#  weight_decay: 5e-5
+#sche:
+#  name: DummyLR
+#
+#num_epoch: 50
+#batch_size: 128
+#seed: 2024
+#model: MoRE
+#dataset: HateMM
+#type: default
+#patience: 12
+
+
+# 本地，修改专家
+#data:
+#  task: binary
+#  text_encoder: D:/code/LAB/my_MoRE_cloud/MoRE2026-Cloud/models/bert/bert-base-uncased
+#  num_pos: 30
+#  num_neg: 90
+#
+#para:
+#  text_encoder: D:/code/LAB/my_MoRE_cloud/MoRE2026-Cloud/models/bert/bert-base-uncased
+#  fea_dim: 64                    # 降低特征维度
+#  num_epoch: 50
+#  delta: 0.4                      # 增加delta让正负样本更难区分
+#  alpha: 0.6                      # 稍微平衡多模态权重
+#  num_pos: 30
+#  num_neg: 90
+#  dropout: 0.3                    # 添加dropout
+#
+#opt:
+#  name: AdamW
+#  lr: 0.0007                       # 降低学习率
+#  weight_decay: 0.002              # 增加权重衰减
+#
+#sche:
+#  name: DummyLR
+#
+#num_epoch: 50
+#batch_size: 128
+#seed: 2024
+#model: MoRE
+#dataset: HateMM
+#type: default
+#patience: 15
+#
+#2026-02-16 11:54:51.865 | INFO     | __main__:run:134 - Best of Acc in all fold: 0.8156682252883911, Best F1: 0.803013801574707, Best Precision: 0.815117359161377, Best Recall: 0.7967285513877869
+#2026-02-16 11:54:51.865 | INFO     | __main__:run:135 - Best of A F1 in all fold: 0.8529411554336548, Best A Precision: 0.8169013857841492, Best A Recall: 0.892307698726654
+#2026-02-16 11:54:51.865 | INFO     | __main__:run:136 - Best of B F1 in all fold: 0.7530864477157593, Best B Precision: 0.8133333325386047, Best B Recall: 0.7011494040489197
+
+##RADAR
+data:
+  task: binary
+  text_encoder: D:/code/LAB/my_MoRE_cloud/MoRE2026-Cloud/models/bert/bert-base-uncased
+  num_pos: 30
+  num_neg: 90
+
+para:
+  text_encoder: D:/code/LAB/my_MoRE_cloud/MoRE2026-Cloud/models/bert/bert-base-uncased
+  fea_dim: 64                    # 降低特征维度
+  num_epoch: 50
+  delta: 0.4                      # 增加delta让正负样本更难区分
+  alpha: 0.6                      # 稍微平衡多模态权重
+  num_pos: 30
+  num_neg: 90
+  dropout: 0.3                    # 添加dropout
+
+  #RADAR
+  use_radar: true                     # 开启RADAR
+  radar_at_test: true                  # 测试时也使用
+  memory_size: 1024                    # 记忆库大小
+  entropy_threshold: 0.1                # 熵阈值（保守）
+  num_retrieve: 3                       # 检索数量
+  align_loss_weight: 0.5                 # 对齐损失权重（重要！）
+  self_train_temperature: 0.2            # 温度参数
+  pseudo_alpha: 0.7                      # 伪标签alpha
+  pseudo_beta: 0.3                       # 伪标签beta
+  use_pseudo_label: false                 # 伪标签关闭
+  history_size: 2048
+
+opt:
+  name: AdamW
+  lr: 0.0007                       # 降低学习率
+  weight_decay: 0.002              # 增加权重衰减
+
+sche:
+  name: DummyLR
+
+num_epoch: 50
+batch_size: 128
+seed: 2024
+model: MoRE
+dataset: HateMM
+type: default
+patience: 7

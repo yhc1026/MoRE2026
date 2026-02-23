@@ -1,0 +1,567 @@
+2026-02-16 12:33:19.345 | INFO     | __main__:main:230 - data:
+  task: binary
+  text_encoder: D:/code/LAB/my_MoRE_cloud/MoRE2026-Cloud/models/bert/bert-base-uncased
+  num_pos: 30
+  num_neg: 90
+para:
+  text_encoder: D:/code/LAB/my_MoRE_cloud/MoRE2026-Cloud/models/bert/bert-base-uncased
+  fea_dim: 64
+  num_epoch: 50
+  delta: 0.4
+  alpha: 0.6
+  num_pos: 30
+  num_neg: 90
+  dropout: 0.3
+opt:
+  name: AdamW
+  lr: 0.0007
+  weight_decay: 0.002
+sche:
+  name: DummyLR
+num_epoch: 50
+batch_size: 128
+seed: 2024
+model: MoRE
+dataset: HateMM
+type: default
+patience: 15
+
+2026-02-16 12:33:20.841 | INFO     | __main__:run:101 - Current fold: default
+2026-02-16 12:33:20.841 | INFO     | __main__:run:103 - Current Epoch: 0
+2026-02-16 12:33:23.381 | INFO     | __main__:_train:172 - [34mTrain: Loss: 0.6887756089369456
+2026-02-16 12:33:23.381 | INFO     | __main__:_train:174 - [34mTrain: Acc: 0.58520, Macro F1: 0.55026, Macro Prec: 0.55607, Macro Rec: 0.55124
+2026-02-16 12:33:23.381 | INFO     | __main__:_train:175 - [34mTrain: A F1: 0.67562, A Prec: 0.63867, A Rec: 0.71711
+2026-02-16 12:33:23.381 | INFO     | __main__:_train:176 - [34mTrain: B F1: 0.42491, B Prec: 0.47347, B Rec: 0.38538
+2026-02-16 12:33:23.723 | INFO     | __main__:_valid:211 - [33mValid: Loss: 0.65865
+2026-02-16 12:33:23.723 | INFO     | __main__:_valid:212 - [33mValid: Acc: 0.60550, Macro F1: 0.37714, Macro Prec: 0.30275, Macro Rec: 0.50000
+2026-02-16 12:33:23.723 | INFO     | __main__:_valid:213 - [33mValid: A F1: 0.75429, A Prec: 0.60550, A Rec: 1.00000
+2026-02-16 12:33:23.723 | INFO     | __main__:_valid:214 - [33mValid: B F1: 0.00000, B Prec: 0.00000, B Rec: 0.00000
+2026-02-16 12:33:24.657 | INFO     | __main__:_valid:211 - [31mTest: Loss: 0.65632
+2026-02-16 12:33:24.658 | INFO     | __main__:_valid:212 - [31mTest: Acc: 0.59908, Macro F1: 0.37464, Macro Prec: 0.29954, Macro Rec: 0.50000
+2026-02-16 12:33:24.658 | INFO     | __main__:_valid:213 - [31mTest: A F1: 0.74928, A Prec: 0.59908, A Rec: 1.00000
+2026-02-16 12:33:24.658 | INFO     | __main__:_valid:214 - [31mTest: B F1: 0.00000, B Prec: 0.00000, B Rec: 0.00000
+2026-02-16 12:33:24.658 | INFO     | __main__:run:103 - Current Epoch: 1
+2026-02-16 12:33:26.660 | INFO     | __main__:_train:172 - [34mTrain: Loss: 0.6364372273286184
+2026-02-16 12:33:26.660 | INFO     | __main__:_train:174 - [34mTrain: Acc: 0.64465, Macro F1: 0.51625, Macro Prec: 0.68887, Macro Rec: 0.56275
+2026-02-16 12:33:26.660 | INFO     | __main__:_train:175 - [34mTrain: A F1: 0.76548, A Prec: 0.63531, A Rec: 0.96272
+2026-02-16 12:33:26.660 | INFO     | __main__:_train:176 - [34mTrain: B F1: 0.26703, B Prec: 0.74242, B Rec: 0.16279
+2026-02-16 12:33:26.979 | INFO     | __main__:_valid:211 - [33mValid: Loss: 0.61484
+2026-02-16 12:33:26.979 | INFO     | __main__:_valid:212 - [33mValid: Acc: 0.69725, Macro F1: 0.68670, Macro Prec: 0.68530, Macro Rec: 0.68922
+2026-02-16 12:33:26.980 | INFO     | __main__:_valid:213 - [33mValid: A F1: 0.74419, A Prec: 0.76190, A Rec: 0.72727
+2026-02-16 12:33:26.980 | INFO     | __main__:_valid:214 - [33mValid: B F1: 0.62921, B Prec: 0.60870, B Rec: 0.65116
+2026-02-16 12:33:27.931 | INFO     | __main__:_valid:211 - [31mTest: Loss: 0.61019
+2026-02-16 12:33:27.931 | INFO     | __main__:_valid:212 - [31mTest: Acc: 0.69585, Macro F1: 0.67656, Macro Prec: 0.68247, Macro Rec: 0.67392
+2026-02-16 12:33:27.932 | INFO     | __main__:_valid:213 - [31mTest: A F1: 0.75556, A Prec: 0.72857, A Rec: 0.78462
+2026-02-16 12:33:27.932 | INFO     | __main__:_valid:214 - [31mTest: B F1: 0.59756, B Prec: 0.63636, B Rec: 0.56322
+2026-02-16 12:33:27.932 | INFO     | __main__:run:103 - Current Epoch: 2
+2026-02-16 12:33:29.922 | INFO     | __main__:_train:172 - [34mTrain: Loss: 0.6112642784913381
+2026-02-16 12:33:29.922 | INFO     | __main__:_train:174 - [34mTrain: Acc: 0.72127, Macro F1: 0.70124, Macro Prec: 0.70978, Macro Rec: 0.69750
+2026-02-16 12:33:29.922 | INFO     | __main__:_train:175 - [34mTrain: A F1: 0.77859, A Prec: 0.74648, A Rec: 0.81360
+2026-02-16 12:33:29.923 | INFO     | __main__:_train:176 - [34mTrain: B F1: 0.62389, B Prec: 0.67308, B Rec: 0.58140
+2026-02-16 12:33:30.231 | INFO     | __main__:_valid:211 - [33mValid: Loss: 0.61615
+2026-02-16 12:33:30.232 | INFO     | __main__:_valid:212 - [33mValid: Acc: 0.65138, Macro F1: 0.65135, Macro Prec: 0.68532, Macro Rec: 0.68376
+2026-02-16 12:33:30.232 | INFO     | __main__:_valid:213 - [33mValid: A F1: 0.64815, A Prec: 0.83333, A Rec: 0.53030
+2026-02-16 12:33:30.232 | INFO     | __main__:_valid:214 - [33mValid: B F1: 0.65455, B Prec: 0.53731, B Rec: 0.83721
+2026-02-16 12:33:30.858 | INFO     | __main__:_valid:211 - [31mTest: Loss: 0.59300
+2026-02-16 12:33:30.858 | INFO     | __main__:_valid:212 - [31mTest: Acc: 0.70046, Macro F1: 0.70023, Macro Prec: 0.71909, Macro Rec: 0.72339
+2026-02-16 12:33:30.858 | INFO     | __main__:_valid:213 - [31mTest: A F1: 0.70852, A Prec: 0.84946, A Rec: 0.60769
+2026-02-16 12:33:30.859 | INFO     | __main__:_valid:214 - [31mTest: B F1: 0.69194, B Prec: 0.58871, B Rec: 0.83908
+2026-02-16 12:33:30.859 | INFO     | __main__:run:103 - Current Epoch: 3
+2026-02-16 12:33:32.849 | INFO     | __main__:_train:172 - [34mTrain: Loss: 0.5701533854007721
+2026-02-16 12:33:32.849 | INFO     | __main__:_train:174 - [34mTrain: Acc: 0.75826, Macro F1: 0.74411, Macro Prec: 0.74860, Macro Rec: 0.74118
+2026-02-16 12:33:32.850 | INFO     | __main__:_train:175 - [34mTrain: A F1: 0.80428, A Prec: 0.78497, A Rec: 0.82456
+2026-02-16 12:33:32.850 | INFO     | __main__:_train:176 - [34mTrain: B F1: 0.68394, B Prec: 0.71223, B Rec: 0.65781
+2026-02-16 12:33:33.162 | INFO     | __main__:_valid:211 - [33mValid: Loss: 0.57305
+2026-02-16 12:33:33.162 | INFO     | __main__:_valid:212 - [33mValid: Acc: 0.68807, Macro F1: 0.68593, Macro Prec: 0.69332, Macro Rec: 0.70190
+2026-02-16 12:33:33.162 | INFO     | __main__:_valid:213 - [33mValid: A F1: 0.71186, A Prec: 0.80769, A Rec: 0.63636
+2026-02-16 12:33:33.162 | INFO     | __main__:_valid:214 - [33mValid: B F1: 0.66000, B Prec: 0.57895, B Rec: 0.76744
+2026-02-16 12:33:33.852 | INFO     | __main__:_valid:211 - [31mTest: Loss: 0.55157
+2026-02-16 12:33:33.852 | INFO     | __main__:_valid:212 - [31mTest: Acc: 0.71429, Macro F1: 0.71208, Macro Prec: 0.71668, Macro Rec: 0.72542
+2026-02-16 12:33:33.852 | INFO     | __main__:_valid:213 - [31mTest: A F1: 0.73729, A Prec: 0.82075, A Rec: 0.66923
+2026-02-16 12:33:33.852 | INFO     | __main__:_valid:214 - [31mTest: B F1: 0.68687, B Prec: 0.61261, B Rec: 0.78161
+2026-02-16 12:33:33.854 | INFO     | __main__:run:103 - Current Epoch: 4
+2026-02-16 12:33:35.892 | INFO     | __main__:_train:172 - [34mTrain: Loss: 0.5231532156467438
+2026-02-16 12:33:35.892 | INFO     | __main__:_train:174 - [34mTrain: Acc: 0.79657, Macro F1: 0.78589, Macro Prec: 0.78869, Macro Rec: 0.78371
+2026-02-16 12:33:35.892 | INFO     | __main__:_train:175 - [34mTrain: A F1: 0.83369, A Prec: 0.82128, A Rec: 0.84649
+2026-02-16 12:33:35.893 | INFO     | __main__:_train:176 - [34mTrain: B F1: 0.73810, B Prec: 0.75610, B Rec: 0.72093
+2026-02-16 12:33:36.208 | INFO     | __main__:_valid:211 - [33mValid: Loss: 0.57037
+2026-02-16 12:33:36.209 | INFO     | __main__:_valid:212 - [33mValid: Acc: 0.69725, Macro F1: 0.69468, Macro Prec: 0.70030, Macro Rec: 0.70948
+2026-02-16 12:33:36.209 | INFO     | __main__:_valid:213 - [33mValid: A F1: 0.72269, A Prec: 0.81132, A Rec: 0.65152
+2026-02-16 12:33:36.209 | INFO     | __main__:_valid:214 - [33mValid: B F1: 0.66667, B Prec: 0.58929, B Rec: 0.76744
+2026-02-16 12:33:37.161 | INFO     | __main__:_valid:211 - [31mTest: Loss: 0.53103
+2026-02-16 12:33:37.161 | INFO     | __main__:_valid:212 - [31mTest: Acc: 0.74194, Macro F1: 0.73994, Macro Prec: 0.74435, Macro Rec: 0.75420
+2026-02-16 12:33:37.161 | INFO     | __main__:_valid:213 - [31mTest: A F1: 0.76271, A Prec: 0.84906, A Rec: 0.69231
+2026-02-16 12:33:37.161 | INFO     | __main__:_valid:214 - [31mTest: B F1: 0.71717, B Prec: 0.63964, B Rec: 0.81609
+2026-02-16 12:33:37.162 | INFO     | __main__:run:103 - Current Epoch: 5
+2026-02-16 12:33:39.139 | INFO     | __main__:_train:172 - [34mTrain: Loss: 0.49505987763404846
+2026-02-16 12:33:39.139 | INFO     | __main__:_train:174 - [34mTrain: Acc: 0.79524, Macro F1: 0.78711, Macro Prec: 0.78610, Macro Rec: 0.78826
+2026-02-16 12:33:39.140 | INFO     | __main__:_train:175 - [34mTrain: A F1: 0.82873, A Prec: 0.83519, A Rec: 0.82237
+2026-02-16 12:33:39.140 | INFO     | __main__:_train:176 - [34mTrain: B F1: 0.74548, B Prec: 0.73701, B Rec: 0.75415
+2026-02-16 12:33:39.441 | INFO     | __main__:_valid:211 - [33mValid: Loss: 0.55402
+2026-02-16 12:33:39.441 | INFO     | __main__:_valid:212 - [33mValid: Acc: 0.69725, Macro F1: 0.69217, Macro Prec: 0.69281, Macro Rec: 0.70137
+2026-02-16 12:33:39.441 | INFO     | __main__:_valid:213 - [33mValid: A F1: 0.73171, A Prec: 0.78947, A Rec: 0.68182
+2026-02-16 12:33:39.441 | INFO     | __main__:_valid:214 - [33mValid: B F1: 0.65263, B Prec: 0.59615, B Rec: 0.72093
+2026-02-16 12:33:40.409 | INFO     | __main__:_valid:211 - [31mTest: Loss: 0.50304
+2026-02-16 12:33:40.409 | INFO     | __main__:_valid:212 - [31mTest: Acc: 0.76037, Macro F1: 0.75397, Macro Prec: 0.75194, Macro Rec: 0.75818
+2026-02-16 12:33:40.409 | INFO     | __main__:_valid:213 - [31mTest: A F1: 0.79365, A Prec: 0.81967, A Rec: 0.76923
+2026-02-16 12:33:40.409 | INFO     | __main__:_valid:214 - [31mTest: B F1: 0.71429, B Prec: 0.68421, B Rec: 0.74713
+2026-02-16 12:33:40.410 | INFO     | __main__:run:103 - Current Epoch: 6
+2026-02-16 12:33:42.392 | INFO     | __main__:_train:172 - [34mTrain: Loss: 0.4586959481239319
+2026-02-16 12:33:42.392 | INFO     | __main__:_train:174 - [34mTrain: Acc: 0.82695, Macro F1: 0.81730, Macro Prec: 0.82176, Macro Rec: 0.81401
+2026-02-16 12:33:42.392 | INFO     | __main__:_train:175 - [34mTrain: A F1: 0.85929, A Prec: 0.84211, A Rec: 0.87719
+2026-02-16 12:33:42.392 | INFO     | __main__:_train:176 - [34mTrain: B F1: 0.77530, B Prec: 0.80142, B Rec: 0.75083
+2026-02-16 12:33:42.693 | INFO     | __main__:_valid:211 - [33mValid: Loss: 0.58117
+2026-02-16 12:33:42.694 | INFO     | __main__:_valid:212 - [33mValid: Acc: 0.69725, Macro F1: 0.69684, Macro Prec: 0.71585, Macro Rec: 0.72163
+2026-02-16 12:33:42.694 | INFO     | __main__:_valid:213 - [33mValid: A F1: 0.70796, A Prec: 0.85106, A Rec: 0.60606
+2026-02-16 12:33:42.694 | INFO     | __main__:_valid:214 - [33mValid: B F1: 0.68571, B Prec: 0.58065, B Rec: 0.83721
+2026-02-16 12:33:43.666 | INFO     | __main__:_valid:211 - [31mTest: Loss: 0.54315
+2026-02-16 12:33:43.666 | INFO     | __main__:_valid:212 - [31mTest: Acc: 0.72350, Macro F1: 0.72217, Macro Prec: 0.73026, Macro Rec: 0.73882
+2026-02-16 12:33:43.666 | INFO     | __main__:_valid:213 - [31mTest: A F1: 0.74138, A Prec: 0.84314, A Rec: 0.66154
+2026-02-16 12:33:43.666 | INFO     | __main__:_valid:214 - [31mTest: B F1: 0.70297, B Prec: 0.61739, B Rec: 0.81609
+2026-02-16 12:33:43.667 | INFO     | __main__:run:103 - Current Epoch: 7
+2026-02-16 12:33:45.659 | INFO     | __main__:_train:172 - [34mTrain: Loss: 0.4628878782192866
+2026-02-16 12:33:45.659 | INFO     | __main__:_train:174 - [34mTrain: Acc: 0.81110, Macro F1: 0.80480, Macro Prec: 0.80250, Macro Rec: 0.80819
+2026-02-16 12:33:45.659 | INFO     | __main__:_train:175 - [34mTrain: A F1: 0.83987, A Prec: 0.85812, A Rec: 0.82237
+2026-02-16 12:33:45.659 | INFO     | __main__:_train:176 - [34mTrain: B F1: 0.76973, B Prec: 0.74687, B Rec: 0.79402
+2026-02-16 12:33:46.017 | INFO     | __main__:_valid:211 - [33mValid: Loss: 0.54778
+2026-02-16 12:33:46.017 | INFO     | __main__:_valid:212 - [33mValid: Acc: 0.75229, Macro F1: 0.74177, Macro Prec: 0.74091, Macro Rec: 0.74278
+2026-02-16 12:33:46.017 | INFO     | __main__:_valid:213 - [33mValid: A F1: 0.79389, A Prec: 0.80000, A Rec: 0.78788
+2026-02-16 12:33:46.017 | INFO     | __main__:_valid:214 - [33mValid: B F1: 0.68966, B Prec: 0.68182, B Rec: 0.69767
+2026-02-16 12:33:46.973 | INFO     | __main__:_valid:211 - [31mTest: Loss: 0.49981
+2026-02-16 12:33:46.973 | INFO     | __main__:_valid:212 - [31mTest: Acc: 0.79263, Macro F1: 0.78456, Macro Prec: 0.78405, Macro Rec: 0.78510
+2026-02-16 12:33:46.973 | INFO     | __main__:_valid:213 - [31mTest: A F1: 0.82625, A Prec: 0.82946, A Rec: 0.82308
+2026-02-16 12:33:46.973 | INFO     | __main__:_valid:214 - [31mTest: B F1: 0.74286, B Prec: 0.73864, B Rec: 0.74713
+2026-02-16 12:33:46.974 | INFO     | __main__:run:103 - Current Epoch: 8
+2026-02-16 12:33:48.961 | INFO     | __main__:_train:172 - [34mTrain: Loss: 0.4598928640286128
+2026-02-16 12:33:48.961 | INFO     | __main__:_train:174 - [34mTrain: Acc: 0.81374, Macro F1: 0.80570, Macro Prec: 0.80553, Macro Rec: 0.80587
+2026-02-16 12:33:48.961 | INFO     | __main__:_train:175 - [34mTrain: A F1: 0.84523, A Prec: 0.84615, A Rec: 0.84430
+2026-02-16 12:33:48.961 | INFO     | __main__:_train:176 - [34mTrain: B F1: 0.76617, B Prec: 0.76490, B Rec: 0.76744
+2026-02-16 12:33:49.268 | INFO     | __main__:_valid:211 - [33mValid: Loss: 0.51369
+2026-02-16 12:33:49.268 | INFO     | __main__:_valid:212 - [33mValid: Acc: 0.77064, Macro F1: 0.76090, Macro Prec: 0.75997, Macro Rec: 0.76198
+2026-02-16 12:33:49.269 | INFO     | __main__:_valid:213 - [33mValid: A F1: 0.80916, A Prec: 0.81538, A Rec: 0.80303
+2026-02-16 12:33:49.269 | INFO     | __main__:_valid:214 - [33mValid: B F1: 0.71264, B Prec: 0.70455, B Rec: 0.72093
+2026-02-16 12:33:50.227 | INFO     | __main__:_valid:211 - [31mTest: Loss: 0.47530
+2026-02-16 12:33:50.228 | INFO     | __main__:_valid:212 - [31mTest: Acc: 0.78341, Macro F1: 0.77322, Macro Prec: 0.77506, Macro Rec: 0.77171
+2026-02-16 12:33:50.228 | INFO     | __main__:_valid:213 - [31mTest: A F1: 0.82129, A Prec: 0.81203, A Rec: 0.83077
+2026-02-16 12:33:50.228 | INFO     | __main__:_valid:214 - [31mTest: B F1: 0.72515, B Prec: 0.73810, B Rec: 0.71264
+2026-02-16 12:33:50.229 | INFO     | __main__:run:103 - Current Epoch: 9
+2026-02-16 12:33:52.214 | INFO     | __main__:_train:172 - [34mTrain: Loss: 0.4453999201456706
+2026-02-16 12:33:52.214 | INFO     | __main__:_train:174 - [34mTrain: Acc: 0.82959, Macro F1: 0.81787, Macro Prec: 0.82870, Macro Rec: 0.81169
+2026-02-16 12:33:52.214 | INFO     | __main__:_train:175 - [34mTrain: A F1: 0.86407, A Prec: 0.83164, A Rec: 0.89912
+2026-02-16 12:33:52.215 | INFO     | __main__:_train:176 - [34mTrain: B F1: 0.77168, B Prec: 0.82576, B Rec: 0.72425
+2026-02-16 12:33:52.530 | INFO     | __main__:_valid:211 - [33mValid: Loss: 0.51242
+2026-02-16 12:33:52.531 | INFO     | __main__:_valid:212 - [33mValid: Acc: 0.75229, Macro F1: 0.74925, Macro Prec: 0.75135, Macro Rec: 0.76304
+2026-02-16 12:33:52.531 | INFO     | __main__:_valid:213 - [33mValid: A F1: 0.77686, A Prec: 0.85455, A Rec: 0.71212
+2026-02-16 12:33:52.531 | INFO     | __main__:_valid:214 - [33mValid: B F1: 0.72165, B Prec: 0.64815, B Rec: 0.81395
+2026-02-16 12:33:53.155 | INFO     | __main__:_valid:211 - [31mTest: Loss: 0.48771
+2026-02-16 12:33:53.155 | INFO     | __main__:_valid:212 - [31mTest: Acc: 0.76959, Macro F1: 0.76478, Macro Prec: 0.76293, Macro Rec: 0.77157
+2026-02-16 12:33:53.155 | INFO     | __main__:_valid:213 - [31mTest: A F1: 0.79839, A Prec: 0.83898, A Rec: 0.76154
+2026-02-16 12:33:53.155 | INFO     | __main__:_valid:214 - [31mTest: B F1: 0.73118, B Prec: 0.68687, B Rec: 0.78161
+2026-02-16 12:33:53.156 | INFO     | __main__:run:103 - Current Epoch: 10
+2026-02-16 12:33:55.147 | INFO     | __main__:_train:172 - [34mTrain: Loss: 0.42530250549316406
+2026-02-16 12:33:55.147 | INFO     | __main__:_train:174 - [34mTrain: Acc: 0.83884, Macro F1: 0.82581, Macro Prec: 0.84409, Macro Rec: 0.81710
+2026-02-16 12:33:55.147 | INFO     | __main__:_train:175 - [34mTrain: A F1: 0.87344, A Prec: 0.82874, A Rec: 0.92325
+2026-02-16 12:33:55.148 | INFO     | __main__:_train:176 - [34mTrain: B F1: 0.77818, B Prec: 0.85944, B Rec: 0.71096
+2026-02-16 12:33:55.465 | INFO     | __main__:_valid:211 - [33mValid: Loss: 0.54371
+2026-02-16 12:33:55.465 | INFO     | __main__:_valid:212 - [33mValid: Acc: 0.68807, Macro F1: 0.68784, Macro Prec: 0.70963, Macro Rec: 0.71406
+2026-02-16 12:33:55.465 | INFO     | __main__:_valid:213 - [33mValid: A F1: 0.69643, A Prec: 0.84783, A Rec: 0.59091
+2026-02-16 12:33:55.466 | INFO     | __main__:_valid:214 - [33mValid: B F1: 0.67925, B Prec: 0.57143, B Rec: 0.83721
+2026-02-16 12:33:56.096 | INFO     | __main__:_valid:211 - [31mTest: Loss: 0.51142
+2026-02-16 12:33:56.096 | INFO     | __main__:_valid:212 - [31mTest: Acc: 0.73733, Macro F1: 0.73551, Macro Prec: 0.74077, Macro Rec: 0.75035
+2026-02-16 12:33:56.096 | INFO     | __main__:_valid:213 - [31mTest: A F1: 0.75745, A Prec: 0.84762, A Rec: 0.68462
+2026-02-16 12:33:56.096 | INFO     | __main__:_valid:214 - [31mTest: B F1: 0.71357, B Prec: 0.63393, B Rec: 0.81609
+2026-02-16 12:33:56.097 | INFO     | __main__:run:103 - Current Epoch: 11
+2026-02-16 12:33:58.097 | INFO     | __main__:_train:172 - [34mTrain: Loss: 0.42356325685977936
+2026-02-16 12:33:58.097 | INFO     | __main__:_train:174 - [34mTrain: Acc: 0.83355, Macro F1: 0.82721, Macro Prec: 0.82565, Macro Rec: 0.82909
+2026-02-16 12:33:58.097 | INFO     | __main__:_train:175 - [34mTrain: A F1: 0.86031, A Prec: 0.86996, A Rec: 0.85088
+2026-02-16 12:33:58.098 | INFO     | __main__:_train:176 - [34mTrain: B F1: 0.79412, B Prec: 0.78135, B Rec: 0.80731
+2026-02-16 12:33:58.412 | INFO     | __main__:_valid:211 - [33mValid: Loss: 0.58035
+2026-02-16 12:33:58.412 | INFO     | __main__:_valid:212 - [33mValid: Acc: 0.77064, Macro F1: 0.74256, Macro Prec: 0.77975, Macro Rec: 0.73362
+2026-02-16 12:33:58.412 | INFO     | __main__:_valid:213 - [33mValid: A F1: 0.82759, A Prec: 0.75949, A Rec: 0.90909
+2026-02-16 12:33:58.412 | INFO     | __main__:_valid:214 - [33mValid: B F1: 0.65753, B Prec: 0.80000, B Rec: 0.55814
+2026-02-16 12:33:59.380 | INFO     | __main__:_valid:211 - [31mTest: Loss: 0.56225
+2026-02-16 12:33:59.380 | INFO     | __main__:_valid:212 - [31mTest: Acc: 0.77419, Macro F1: 0.74448, Macro Prec: 0.79542, Macro Rec: 0.73550
+2026-02-16 12:33:59.380 | INFO     | __main__:_valid:213 - [31mTest: A F1: 0.83162, A Prec: 0.75155, A Rec: 0.93077
+2026-02-16 12:33:59.380 | INFO     | __main__:_valid:214 - [31mTest: B F1: 0.65734, B Prec: 0.83929, B Rec: 0.54023
+2026-02-16 12:33:59.382 | INFO     | __main__:run:103 - Current Epoch: 12
+2026-02-16 12:34:01.357 | INFO     | __main__:_train:172 - [34mTrain: Loss: 0.3879360357920329
+2026-02-16 12:34:01.357 | INFO     | __main__:_train:174 - [34mTrain: Acc: 0.88243, Macro F1: 0.87814, Macro Prec: 0.87590, Macro Rec: 0.88096
+2026-02-16 12:34:01.358 | INFO     | __main__:_train:175 - [34mTrain: A F1: 0.90100, A Prec: 0.91422, A Rec: 0.88816
+2026-02-16 12:34:01.358 | INFO     | __main__:_train:176 - [34mTrain: B F1: 0.85528, B Prec: 0.83758, B Rec: 0.87375
+2026-02-16 12:34:01.688 | INFO     | __main__:_valid:211 - [33mValid: Loss: 0.72787
+2026-02-16 12:34:01.689 | INFO     | __main__:_valid:212 - [33mValid: Acc: 0.73394, Macro F1: 0.68756, Macro Prec: 0.75466, Macro Rec: 0.68305
+2026-02-16 12:34:01.689 | INFO     | __main__:_valid:213 - [33mValid: A F1: 0.80795, A Prec: 0.71765, A Rec: 0.92424
+2026-02-16 12:34:01.689 | INFO     | __main__:_valid:214 - [33mValid: B F1: 0.56716, B Prec: 0.79167, B Rec: 0.44186
+2026-02-16 12:34:02.303 | INFO     | __main__:_valid:211 - [31mTest: Loss: 0.65767
+2026-02-16 12:34:02.303 | INFO     | __main__:_valid:212 - [31mTest: Acc: 0.76037, Macro F1: 0.71694, Macro Prec: 0.80782, Macro Rec: 0.71065
+2026-02-16 12:34:02.303 | INFO     | __main__:_valid:213 - [31mTest: A F1: 0.82781, A Prec: 0.72674, A Rec: 0.96154
+2026-02-16 12:34:02.303 | INFO     | __main__:_valid:214 - [31mTest: B F1: 0.60606, B Prec: 0.88889, B Rec: 0.45977
+2026-02-16 12:34:02.304 | INFO     | __main__:run:103 - Current Epoch: 13
+2026-02-16 12:34:04.317 | INFO     | __main__:_train:172 - [34mTrain: Loss: 0.3896465351184209
+2026-02-16 12:34:04.317 | INFO     | __main__:_train:174 - [34mTrain: Acc: 0.86922, Macro F1: 0.86062, Macro Prec: 0.87095, Macro Rec: 0.85418
+2026-02-16 12:34:04.317 | INFO     | __main__:_train:175 - [34mTrain: A F1: 0.89524, A Prec: 0.86503, A Rec: 0.92763
+2026-02-16 12:34:04.317 | INFO     | __main__:_train:176 - [34mTrain: B F1: 0.82601, B Prec: 0.87687, B Rec: 0.78073
+2026-02-16 12:34:04.675 | INFO     | __main__:_valid:211 - [33mValid: Loss: 0.54759
+2026-02-16 12:34:04.675 | INFO     | __main__:_valid:212 - [33mValid: Acc: 0.76147, Macro F1: 0.74588, Macro Prec: 0.75183, Macro Rec: 0.74225
+2026-02-16 12:34:04.675 | INFO     | __main__:_valid:213 - [33mValid: A F1: 0.80882, A Prec: 0.78571, A Rec: 0.83333
+2026-02-16 12:34:04.676 | INFO     | __main__:_valid:214 - [33mValid: B F1: 0.68293, B Prec: 0.71795, B Rec: 0.65116
+2026-02-16 12:34:05.314 | INFO     | __main__:_valid:211 - [31mTest: Loss: 0.49793
+2026-02-16 12:34:05.314 | INFO     | __main__:_valid:212 - [31mTest: Acc: 0.80645, Macro F1: 0.79693, Macro Prec: 0.79972, Macro Rec: 0.79474
+2026-02-16 12:34:05.314 | INFO     | __main__:_valid:213 - [31mTest: A F1: 0.84091, A Prec: 0.82836, A Rec: 0.85385
+2026-02-16 12:34:05.314 | INFO     | __main__:_valid:214 - [31mTest: B F1: 0.75294, B Prec: 0.77108, B Rec: 0.73563
+2026-02-16 12:34:05.314 | INFO     | __main__:run:103 - Current Epoch: 14
+2026-02-16 12:34:07.371 | INFO     | __main__:_train:172 - [34mTrain: Loss: 0.36960358917713165
+2026-02-16 12:34:07.372 | INFO     | __main__:_train:174 - [34mTrain: Acc: 0.88243, Macro F1: 0.87505, Macro Prec: 0.88403, Macro Rec: 0.86910
+2026-02-16 12:34:07.372 | INFO     | __main__:_train:175 - [34mTrain: A F1: 0.90542, A Prec: 0.87835, A Rec: 0.93421
+2026-02-16 12:34:07.372 | INFO     | __main__:_train:176 - [34mTrain: B F1: 0.84468, B Prec: 0.88971, B Rec: 0.80399
+2026-02-16 12:34:07.726 | INFO     | __main__:_valid:211 - [33mValid: Loss: 0.56918
+2026-02-16 12:34:07.726 | INFO     | __main__:_valid:212 - [33mValid: Acc: 0.68807, Macro F1: 0.68593, Macro Prec: 0.69332, Macro Rec: 0.70190
+2026-02-16 12:34:07.727 | INFO     | __main__:_valid:213 - [33mValid: A F1: 0.71186, A Prec: 0.80769, A Rec: 0.63636
+2026-02-16 12:34:07.727 | INFO     | __main__:_valid:214 - [33mValid: B F1: 0.66000, B Prec: 0.57895, B Rec: 0.76744
+2026-02-16 12:34:08.375 | INFO     | __main__:_valid:211 - [31mTest: Loss: 0.56537
+2026-02-16 12:34:08.377 | INFO     | __main__:_valid:212 - [31mTest: Acc: 0.76037, Macro F1: 0.75810, Macro Prec: 0.76083, Macro Rec: 0.77149
+2026-02-16 12:34:08.377 | INFO     | __main__:_valid:213 - [31mTest: A F1: 0.78151, A Prec: 0.86111, A Rec: 0.71538
+2026-02-16 12:34:08.377 | INFO     | __main__:_valid:214 - [31mTest: B F1: 0.73469, B Prec: 0.66055, B Rec: 0.82759
+2026-02-16 12:34:08.378 | INFO     | __main__:run:103 - Current Epoch: 15
+2026-02-16 12:34:10.386 | INFO     | __main__:_train:172 - [34mTrain: Loss: 0.3634328742822011
+2026-02-16 12:34:10.386 | INFO     | __main__:_train:174 - [34mTrain: Acc: 0.88243, Macro F1: 0.87587, Macro Prec: 0.88110, Macro Rec: 0.87192
+2026-02-16 12:34:10.386 | INFO     | __main__:_train:175 - [34mTrain: A F1: 0.90440, A Prec: 0.88632, A Rec: 0.92325
+2026-02-16 12:34:10.386 | INFO     | __main__:_train:176 - [34mTrain: B F1: 0.84734, B Prec: 0.87589, B Rec: 0.82060
+2026-02-16 12:34:10.718 | INFO     | __main__:_valid:211 - [33mValid: Loss: 0.55549
+2026-02-16 12:34:10.718 | INFO     | __main__:_valid:212 - [33mValid: Acc: 0.70642, Macro F1: 0.69722, Macro Prec: 0.69561, Macro Rec: 0.70085
+2026-02-16 12:34:10.718 | INFO     | __main__:_valid:213 - [33mValid: A F1: 0.75000, A Prec: 0.77419, A Rec: 0.72727
+2026-02-16 12:34:10.718 | INFO     | __main__:_valid:214 - [33mValid: B F1: 0.64444, B Prec: 0.61702, B Rec: 0.67442
+2026-02-16 12:34:11.352 | INFO     | __main__:_valid:211 - [31mTest: Loss: 0.50987
+2026-02-16 12:34:11.352 | INFO     | __main__:_valid:212 - [31mTest: Acc: 0.79263, Macro F1: 0.78607, Macro Prec: 0.78413, Macro Rec: 0.78890
+2026-02-16 12:34:11.352 | INFO     | __main__:_valid:213 - [31mTest: A F1: 0.82353, A Prec: 0.84000, A Rec: 0.80769
+2026-02-16 12:34:11.352 | INFO     | __main__:_valid:214 - [31mTest: B F1: 0.74860, B Prec: 0.72826, B Rec: 0.77011
+2026-02-16 12:34:11.353 | INFO     | __main__:run:103 - Current Epoch: 16
+2026-02-16 12:34:13.336 | INFO     | __main__:_train:172 - [34mTrain: Loss: 0.3487756500641505
+2026-02-16 12:34:13.337 | INFO     | __main__:_train:174 - [34mTrain: Acc: 0.89564, Macro F1: 0.89063, Macro Prec: 0.89234, Macro Rec: 0.88910
+2026-02-16 12:34:13.337 | INFO     | __main__:_train:175 - [34mTrain: A F1: 0.91404, A Prec: 0.90713, A Rec: 0.92105
+2026-02-16 12:34:13.337 | INFO     | __main__:_train:176 - [34mTrain: B F1: 0.86723, B Prec: 0.87755, B Rec: 0.85714
+2026-02-16 12:34:13.657 | INFO     | __main__:_valid:211 - [33mValid: Loss: 0.58339
+2026-02-16 12:34:13.657 | INFO     | __main__:_valid:212 - [33mValid: Acc: 0.76147, Macro F1: 0.74822, Macro Prec: 0.75072, Macro Rec: 0.74630
+2026-02-16 12:34:13.657 | INFO     | __main__:_valid:213 - [33mValid: A F1: 0.80597, A Prec: 0.79412, A Rec: 0.81818
+2026-02-16 12:34:13.657 | INFO     | __main__:_valid:214 - [33mValid: B F1: 0.69048, B Prec: 0.70732, B Rec: 0.67442
+2026-02-16 12:34:14.289 | INFO     | __main__:_valid:211 - [31mTest: Loss: 0.50560
+2026-02-16 12:34:14.289 | INFO     | __main__:_valid:212 - [31mTest: Acc: 0.81106, Macro F1: 0.80217, Macro Prec: 0.80420, Macro Rec: 0.80049
+2026-02-16 12:34:14.289 | INFO     | __main__:_valid:213 - [31mTest: A F1: 0.84411, A Prec: 0.83459, A Rec: 0.85385
+2026-02-16 12:34:14.289 | INFO     | __main__:_valid:214 - [31mTest: B F1: 0.76023, B Prec: 0.77381, B Rec: 0.74713
+2026-02-16 12:34:14.290 | INFO     | __main__:run:103 - Current Epoch: 17
+2026-02-16 12:34:16.282 | INFO     | __main__:_train:172 - [34mTrain: Loss: 0.330517182747523
+2026-02-16 12:34:16.283 | INFO     | __main__:_train:174 - [34mTrain: Acc: 0.91149, Macro F1: 0.90656, Macro Prec: 0.91218, Macro Rec: 0.90226
+2026-02-16 12:34:16.283 | INFO     | __main__:_train:175 - [34mTrain: A F1: 0.92803, A Prec: 0.90947, A Rec: 0.94737
+2026-02-16 12:34:16.283 | INFO     | __main__:_train:176 - [34mTrain: B F1: 0.88508, B Prec: 0.91489, B Rec: 0.85714
+2026-02-16 12:34:16.604 | INFO     | __main__:_valid:211 - [33mValid: Loss: 0.67627
+2026-02-16 12:34:16.604 | INFO     | __main__:_valid:212 - [33mValid: Acc: 0.69725, Macro F1: 0.69633, Macro Prec: 0.71003, Macro Rec: 0.71758
+2026-02-16 12:34:16.605 | INFO     | __main__:_valid:213 - [33mValid: A F1: 0.71304, A Prec: 0.83673, A Rec: 0.62121
+2026-02-16 12:34:16.605 | INFO     | __main__:_valid:214 - [33mValid: B F1: 0.67961, B Prec: 0.58333, B Rec: 0.81395
+2026-02-16 12:34:17.236 | INFO     | __main__:_valid:211 - [31mTest: Loss: 0.56630
+2026-02-16 12:34:17.236 | INFO     | __main__:_valid:212 - [31mTest: Acc: 0.77419, Macro F1: 0.77185, Macro Prec: 0.77374, Macro Rec: 0.78492
+2026-02-16 12:34:17.236 | INFO     | __main__:_valid:213 - [31mTest: A F1: 0.79498, A Prec: 0.87156, A Rec: 0.73077
+2026-02-16 12:34:17.237 | INFO     | __main__:_valid:214 - [31mTest: B F1: 0.74872, B Prec: 0.67593, B Rec: 0.83908
+2026-02-16 12:34:17.237 | INFO     | __main__:run:103 - Current Epoch: 18
+2026-02-16 12:34:19.235 | INFO     | __main__:_train:172 - [34mTrain: Loss: 0.33840687572956085
+2026-02-16 12:34:19.235 | INFO     | __main__:_train:174 - [34mTrain: Acc: 0.90489, Macro F1: 0.90026, Macro Prec: 0.90229, Macro Rec: 0.89847
+2026-02-16 12:34:19.235 | INFO     | __main__:_train:175 - [34mTrain: A F1: 0.92174, A Prec: 0.91379, A Rec: 0.92982
+2026-02-16 12:34:19.235 | INFO     | __main__:_train:176 - [34mTrain: B F1: 0.87879, B Prec: 0.89078, B Rec: 0.86711
+2026-02-16 12:34:19.551 | INFO     | __main__:_valid:211 - [33mValid: Loss: 0.64383
+2026-02-16 12:34:19.551 | INFO     | __main__:_valid:212 - [33mValid: Acc: 0.69725, Macro F1: 0.69468, Macro Prec: 0.70030, Macro Rec: 0.70948
+2026-02-16 12:34:19.551 | INFO     | __main__:_valid:213 - [33mValid: A F1: 0.72269, A Prec: 0.81132, A Rec: 0.65152
+2026-02-16 12:34:19.551 | INFO     | __main__:_valid:214 - [33mValid: B F1: 0.66667, B Prec: 0.58929, B Rec: 0.76744
+2026-02-16 12:34:20.177 | INFO     | __main__:_valid:211 - [31mTest: Loss: 0.53708
+2026-02-16 12:34:20.177 | INFO     | __main__:_valid:212 - [31mTest: Acc: 0.79724, Macro F1: 0.79243, Macro Prec: 0.78999, Macro Rec: 0.79845
+2026-02-16 12:34:20.177 | INFO     | __main__:_valid:213 - [31mTest: A F1: 0.82400, A Prec: 0.85833, A Rec: 0.79231
+2026-02-16 12:34:20.178 | INFO     | __main__:_valid:214 - [31mTest: B F1: 0.76087, B Prec: 0.72165, B Rec: 0.80460
+2026-02-16 12:34:20.178 | INFO     | __main__:run:103 - Current Epoch: 19
+2026-02-16 12:34:22.168 | INFO     | __main__:_train:172 - [34mTrain: Loss: 0.35157108803590137
+2026-02-16 12:34:22.168 | INFO     | __main__:_train:174 - [34mTrain: Acc: 0.89168, Macro F1: 0.88743, Macro Prec: 0.88589, Macro Rec: 0.88920
+2026-02-16 12:34:22.169 | INFO     | __main__:_train:175 - [34mTrain: A F1: 0.90929, A Prec: 0.91741, A Rec: 0.90132
+2026-02-16 12:34:22.169 | INFO     | __main__:_train:176 - [34mTrain: B F1: 0.86557, B Prec: 0.85437, B Rec: 0.87708
+2026-02-16 12:34:22.489 | INFO     | __main__:_valid:211 - [33mValid: Loss: 0.60524
+2026-02-16 12:34:22.489 | INFO     | __main__:_valid:212 - [33mValid: Acc: 0.72477, Macro F1: 0.71791, Macro Prec: 0.71633, Macro Rec: 0.72410
+2026-02-16 12:34:22.489 | INFO     | __main__:_valid:213 - [33mValid: A F1: 0.76190, A Prec: 0.80000, A Rec: 0.72727
+2026-02-16 12:34:22.489 | INFO     | __main__:_valid:214 - [33mValid: B F1: 0.67391, B Prec: 0.63265, B Rec: 0.72093
+2026-02-16 12:34:23.121 | INFO     | __main__:_valid:211 - [31mTest: Loss: 0.50880
+2026-02-16 12:34:23.121 | INFO     | __main__:_valid:212 - [31mTest: Acc: 0.79724, Macro F1: 0.78973, Macro Prec: 0.78876, Macro Rec: 0.79085
+2026-02-16 12:34:23.121 | INFO     | __main__:_valid:213 - [31mTest: A F1: 0.82946, A Prec: 0.83594, A Rec: 0.82308
+2026-02-16 12:34:23.121 | INFO     | __main__:_valid:214 - [31mTest: B F1: 0.75000, B Prec: 0.74157, B Rec: 0.75862
+2026-02-16 12:34:23.122 | INFO     | __main__:run:103 - Current Epoch: 20
+2026-02-16 12:34:25.127 | INFO     | __main__:_train:172 - [34mTrain: Loss: 0.32743005951245624
+2026-02-16 12:34:25.127 | INFO     | __main__:_train:174 - [34mTrain: Acc: 0.90621, Macro F1: 0.90098, Macro Prec: 0.90653, Macro Rec: 0.89674
+2026-02-16 12:34:25.128 | INFO     | __main__:_train:175 - [34mTrain: A F1: 0.92374, A Prec: 0.90526, A Rec: 0.94298
+2026-02-16 12:34:25.128 | INFO     | __main__:_train:176 - [34mTrain: B F1: 0.87822, B Prec: 0.90780, B Rec: 0.85050
+2026-02-16 12:34:25.447 | INFO     | __main__:_valid:211 - [33mValid: Loss: 0.55122
+2026-02-16 12:34:25.447 | INFO     | __main__:_valid:212 - [33mValid: Acc: 0.78899, Macro F1: 0.77626, Macro Prec: 0.78080, Macro Rec: 0.77308
+2026-02-16 12:34:25.447 | INFO     | __main__:_valid:213 - [33mValid: A F1: 0.82963, A Prec: 0.81159, A Rec: 0.84848
+2026-02-16 12:34:25.447 | INFO     | __main__:_valid:214 - [33mValid: B F1: 0.72289, B Prec: 0.75000, B Rec: 0.69767
+2026-02-16 12:34:26.472 | INFO     | __main__:_valid:211 - [31mTest: Loss: 0.49109
+2026-02-16 12:34:26.472 | INFO     | __main__:_valid:212 - [31mTest: Acc: 0.81106, Macro F1: 0.80134, Macro Prec: 0.80506, Macro Rec: 0.79859
+2026-02-16 12:34:26.472 | INFO     | __main__:_valid:213 - [31mTest: A F1: 0.84528, A Prec: 0.82963, A Rec: 0.86154
+2026-02-16 12:34:26.472 | INFO     | __main__:_valid:214 - [31mTest: B F1: 0.75740, B Prec: 0.78049, B Rec: 0.73563
+2026-02-16 12:34:26.473 | INFO     | __main__:run:103 - Current Epoch: 21
+2026-02-16 12:34:28.501 | INFO     | __main__:_train:172 - [34mTrain: Loss: 0.3059883813063304
+2026-02-16 12:34:28.501 | INFO     | __main__:_train:174 - [34mTrain: Acc: 0.92470, Macro F1: 0.92050, Macro Prec: 0.92631, Macro Rec: 0.91604
+2026-02-16 12:34:28.501 | INFO     | __main__:_train:175 - [34mTrain: A F1: 0.93878, A Prec: 0.92000, A Rec: 0.95833
+2026-02-16 12:34:28.501 | INFO     | __main__:_train:176 - [34mTrain: B F1: 0.90223, B Prec: 0.93262, B Rec: 0.87375
+2026-02-16 12:34:28.813 | INFO     | __main__:_valid:211 - [33mValid: Loss: 0.61665
+2026-02-16 12:34:28.813 | INFO     | __main__:_valid:212 - [33mValid: Acc: 0.74312, Macro F1: 0.73941, Macro Prec: 0.74040, Macro Rec: 0.75141
+2026-02-16 12:34:28.813 | INFO     | __main__:_valid:213 - [33mValid: A F1: 0.77049, A Prec: 0.83929, A Rec: 0.71212
+2026-02-16 12:34:28.813 | INFO     | __main__:_valid:214 - [33mValid: B F1: 0.70833, B Prec: 0.64151, B Rec: 0.79070
+2026-02-16 12:34:29.429 | INFO     | __main__:_valid:211 - [31mTest: Loss: 0.51819
+2026-02-16 12:34:29.429 | INFO     | __main__:_valid:212 - [31mTest: Acc: 0.79724, Macro F1: 0.79243, Macro Prec: 0.78999, Macro Rec: 0.79845
+2026-02-16 12:34:29.429 | INFO     | __main__:_valid:213 - [31mTest: A F1: 0.82400, A Prec: 0.85833, A Rec: 0.79231
+2026-02-16 12:34:29.430 | INFO     | __main__:_valid:214 - [31mTest: B F1: 0.76087, B Prec: 0.72165, B Rec: 0.80460
+2026-02-16 12:34:29.430 | INFO     | __main__:run:103 - Current Epoch: 22
+2026-02-16 12:34:31.474 | INFO     | __main__:_train:172 - [34mTrain: Loss: 0.2997538199027379
+2026-02-16 12:34:31.474 | INFO     | __main__:_train:174 - [34mTrain: Acc: 0.92470, Macro F1: 0.92050, Macro Prec: 0.92631, Macro Rec: 0.91604
+2026-02-16 12:34:31.474 | INFO     | __main__:_train:175 - [34mTrain: A F1: 0.93878, A Prec: 0.92000, A Rec: 0.95833
+2026-02-16 12:34:31.475 | INFO     | __main__:_train:176 - [34mTrain: B F1: 0.90223, B Prec: 0.93262, B Rec: 0.87375
+2026-02-16 12:34:31.808 | INFO     | __main__:_valid:211 - [33mValid: Loss: 0.69984
+2026-02-16 12:34:31.809 | INFO     | __main__:_valid:212 - [33mValid: Acc: 0.74312, Macro F1: 0.73816, Macro Prec: 0.73732, Macro Rec: 0.74736
+2026-02-16 12:34:31.809 | INFO     | __main__:_valid:213 - [33mValid: A F1: 0.77419, A Prec: 0.82759, A Rec: 0.72727
+2026-02-16 12:34:31.809 | INFO     | __main__:_valid:214 - [33mValid: B F1: 0.70213, B Prec: 0.64706, B Rec: 0.76744
+2026-02-16 12:34:32.458 | INFO     | __main__:_valid:211 - [31mTest: Loss: 0.54691
+2026-02-16 12:34:32.458 | INFO     | __main__:_valid:212 - [31mTest: Acc: 0.79263, Macro F1: 0.78802, Macro Prec: 0.78571, Macro Rec: 0.79461
+2026-02-16 12:34:32.458 | INFO     | __main__:_valid:213 - [31mTest: A F1: 0.81928, A Prec: 0.85714, A Rec: 0.78462
+2026-02-16 12:34:32.458 | INFO     | __main__:_valid:214 - [31mTest: B F1: 0.75676, B Prec: 0.71429, B Rec: 0.80460
+2026-02-16 12:34:32.459 | INFO     | __main__:run:103 - Current Epoch: 23
+2026-02-16 12:34:34.503 | INFO     | __main__:_train:172 - [34mTrain: Loss: 0.28814760347207385
+2026-02-16 12:34:34.503 | INFO     | __main__:_train:174 - [34mTrain: Acc: 0.93659, Macro F1: 0.93374, Macro Prec: 0.93425, Macro Rec: 0.93325
+2026-02-16 12:34:34.504 | INFO     | __main__:_train:175 - [34mTrain: A F1: 0.94748, A Prec: 0.94541, A Rec: 0.94956
+2026-02-16 12:34:34.504 | INFO     | __main__:_train:176 - [34mTrain: B F1: 0.92000, B Prec: 0.92308, B Rec: 0.91694
+2026-02-16 12:34:34.829 | INFO     | __main__:_valid:211 - [33mValid: Loss: 0.66849
+2026-02-16 12:34:34.829 | INFO     | __main__:_valid:212 - [33mValid: Acc: 0.76147, Macro F1: 0.75399, Macro Prec: 0.75172, Macro Rec: 0.75846
+2026-02-16 12:34:34.829 | INFO     | __main__:_valid:213 - [33mValid: A F1: 0.79688, A Prec: 0.82258, A Rec: 0.77273
+2026-02-16 12:34:34.829 | INFO     | __main__:_valid:214 - [33mValid: B F1: 0.71111, B Prec: 0.68085, B Rec: 0.74419
+2026-02-16 12:34:35.473 | INFO     | __main__:_valid:211 - [31mTest: Loss: 0.54089
+2026-02-16 12:34:35.473 | INFO     | __main__:_valid:212 - [31mTest: Acc: 0.82028, Macro F1: 0.81396, Macro Prec: 0.81247, Macro Rec: 0.81578
+2026-02-16 12:34:35.473 | INFO     | __main__:_valid:213 - [31mTest: A F1: 0.84825, A Prec: 0.85827, A Rec: 0.83846
+2026-02-16 12:34:35.474 | INFO     | __main__:_valid:214 - [31mTest: B F1: 0.77966, B Prec: 0.76667, B Rec: 0.79310
+2026-02-16 12:34:35.474 | INFO     | __main__:run:103 - Current Epoch: 24
+2026-02-16 12:34:37.546 | INFO     | __main__:_train:172 - [34mTrain: Loss: 0.2770946870247523
+2026-02-16 12:34:37.547 | INFO     | __main__:_train:174 - [34mTrain: Acc: 0.93923, Macro F1: 0.93650, Macro Prec: 0.93701, Macro Rec: 0.93601
+2026-02-16 12:34:37.547 | INFO     | __main__:_train:175 - [34mTrain: A F1: 0.94967, A Prec: 0.94760, A Rec: 0.95175
+2026-02-16 12:34:37.547 | INFO     | __main__:_train:176 - [34mTrain: B F1: 0.92333, B Prec: 0.92642, B Rec: 0.92027
+2026-02-16 12:34:37.867 | INFO     | __main__:_valid:211 - [33mValid: Loss: 0.69477
+2026-02-16 12:34:37.867 | INFO     | __main__:_valid:212 - [33mValid: Acc: 0.78899, Macro F1: 0.77824, Macro Prec: 0.77950, Macro Rec: 0.77713
+2026-02-16 12:34:37.867 | INFO     | __main__:_valid:213 - [33mValid: A F1: 0.82707, A Prec: 0.82090, A Rec: 0.83333
+2026-02-16 12:34:37.867 | INFO     | __main__:_valid:214 - [33mValid: B F1: 0.72941, B Prec: 0.73810, B Rec: 0.72093
+2026-02-16 12:34:38.841 | INFO     | __main__:_valid:211 - [31mTest: Loss: 0.59989
+2026-02-16 12:34:38.841 | INFO     | __main__:_valid:212 - [31mTest: Acc: 0.82028, Macro F1: 0.80933, Macro Prec: 0.81752, Macro Rec: 0.80438
+2026-02-16 12:34:38.841 | INFO     | __main__:_valid:213 - [31mTest: A F1: 0.85502, A Prec: 0.82734, A Rec: 0.88462
+2026-02-16 12:34:38.841 | INFO     | __main__:_valid:214 - [31mTest: B F1: 0.76364, B Prec: 0.80769, B Rec: 0.72414
+2026-02-16 12:34:38.843 | INFO     | __main__:run:103 - Current Epoch: 25
+2026-02-16 12:34:40.877 | INFO     | __main__:_train:172 - [34mTrain: Loss: 0.26684791843096417
+2026-02-16 12:34:40.878 | INFO     | __main__:_train:174 - [34mTrain: Acc: 0.94716, Macro F1: 0.94491, Macro Prec: 0.94442, Macro Rec: 0.94541
+2026-02-16 12:34:40.878 | INFO     | __main__:_train:175 - [34mTrain: A F1: 0.95604, A Prec: 0.95815, A Rec: 0.95395
+2026-02-16 12:34:40.878 | INFO     | __main__:_train:176 - [34mTrain: B F1: 0.93377, B Prec: 0.93069, B Rec: 0.93688
+2026-02-16 12:34:41.194 | INFO     | __main__:_valid:211 - [33mValid: Loss: 0.67356
+2026-02-16 12:34:41.194 | INFO     | __main__:_valid:212 - [33mValid: Acc: 0.80734, Macro F1: 0.79373, Macro Prec: 0.80319, Macro Rec: 0.78823
+2026-02-16 12:34:41.195 | INFO     | __main__:_valid:213 - [33mValid: A F1: 0.84672, A Prec: 0.81690, A Rec: 0.87879
+2026-02-16 12:34:41.195 | INFO     | __main__:_valid:214 - [33mValid: B F1: 0.74074, B Prec: 0.78947, B Rec: 0.69767
+2026-02-16 12:34:42.176 | INFO     | __main__:_valid:211 - [31mTest: Loss: 0.58614
+2026-02-16 12:34:42.176 | INFO     | __main__:_valid:212 - [31mTest: Acc: 0.81567, Macro F1: 0.80301, Macro Prec: 0.81512, Macro Rec: 0.79673
+2026-02-16 12:34:42.176 | INFO     | __main__:_valid:213 - [31mTest: A F1: 0.85294, A Prec: 0.81690, A Rec: 0.89231
+2026-02-16 12:34:42.178 | INFO     | __main__:_valid:214 - [31mTest: B F1: 0.75309, B Prec: 0.81333, B Rec: 0.70115
+2026-02-16 12:34:42.178 | INFO     | __main__:run:103 - Current Epoch: 26
+2026-02-16 12:34:44.214 | INFO     | __main__:_train:172 - [34mTrain: Loss: 0.251552847524484
+2026-02-16 12:34:44.215 | INFO     | __main__:_train:174 - [34mTrain: Acc: 0.95641, Macro F1: 0.95447, Macro Prec: 0.95473, Macro Rec: 0.95422
+2026-02-16 12:34:44.215 | INFO     | __main__:_train:175 - [34mTrain: A F1: 0.96386, A Prec: 0.96280, A Rec: 0.96491
+2026-02-16 12:34:44.215 | INFO     | __main__:_train:176 - [34mTrain: B F1: 0.94509, B Prec: 0.94667, B Rec: 0.94352
+2026-02-16 12:34:44.538 | INFO     | __main__:_valid:211 - [33mValid: Loss: 0.71736
+2026-02-16 12:34:44.538 | INFO     | __main__:_valid:212 - [33mValid: Acc: 0.79817, Macro F1: 0.78279, Macro Prec: 0.79467, Macro Rec: 0.77660
+2026-02-16 12:34:44.538 | INFO     | __main__:_valid:213 - [33mValid: A F1: 0.84058, A Prec: 0.80556, A Rec: 0.87879
+2026-02-16 12:34:44.538 | INFO     | __main__:_valid:214 - [33mValid: B F1: 0.72500, B Prec: 0.78378, B Rec: 0.67442
+2026-02-16 12:34:45.178 | INFO     | __main__:_valid:211 - [31mTest: Loss: 0.65962
+2026-02-16 12:34:45.179 | INFO     | __main__:_valid:212 - [31mTest: Acc: 0.80184, Macro F1: 0.78027, Macro Prec: 0.81774, Macro Rec: 0.76998
+2026-02-16 12:34:45.179 | INFO     | __main__:_valid:213 - [31mTest: A F1: 0.84912, A Prec: 0.78065, A Rec: 0.93077
+2026-02-16 12:34:45.179 | INFO     | __main__:_valid:214 - [31mTest: B F1: 0.71141, B Prec: 0.85484, B Rec: 0.60920
+2026-02-16 12:34:45.180 | INFO     | __main__:run:103 - Current Epoch: 27
+2026-02-16 12:34:47.209 | INFO     | __main__:_train:172 - [34mTrain: Loss: 0.23652381698290506
+2026-02-16 12:34:47.209 | INFO     | __main__:_train:174 - [34mTrain: Acc: 0.97622, Macro F1: 0.97510, Macro Prec: 0.97684, Macro Rec: 0.97349
+2026-02-16 12:34:47.210 | INFO     | __main__:_train:175 - [34mTrain: A F1: 0.98039, A Prec: 0.97403, A Rec: 0.98684
+2026-02-16 12:34:47.210 | INFO     | __main__:_train:176 - [34mTrain: B F1: 0.96980, B Prec: 0.97966, B Rec: 0.96013
+2026-02-16 12:34:47.528 | INFO     | __main__:_valid:211 - [33mValid: Loss: 0.82711
+2026-02-16 12:34:47.528 | INFO     | __main__:_valid:212 - [33mValid: Acc: 0.78899, Macro F1: 0.77626, Macro Prec: 0.78080, Macro Rec: 0.77308
+2026-02-16 12:34:47.529 | INFO     | __main__:_valid:213 - [33mValid: A F1: 0.82963, A Prec: 0.81159, A Rec: 0.84848
+2026-02-16 12:34:47.529 | INFO     | __main__:_valid:214 - [33mValid: B F1: 0.72289, B Prec: 0.75000, B Rec: 0.69767
+2026-02-16 12:34:48.154 | INFO     | __main__:_valid:211 - [31mTest: Loss: 0.67894
+2026-02-16 12:34:48.154 | INFO     | __main__:_valid:212 - [31mTest: Acc: 0.81567, Macro F1: 0.80301, Macro Prec: 0.81512, Macro Rec: 0.79673
+2026-02-16 12:34:48.154 | INFO     | __main__:_valid:213 - [31mTest: A F1: 0.85294, A Prec: 0.81690, A Rec: 0.89231
+2026-02-16 12:34:48.155 | INFO     | __main__:_valid:214 - [31mTest: B F1: 0.75309, B Prec: 0.81333, B Rec: 0.70115
+2026-02-16 12:34:48.155 | INFO     | __main__:run:103 - Current Epoch: 28
+2026-02-16 12:34:50.169 | INFO     | __main__:_train:172 - [34mTrain: Loss: 0.2211389789978663
+2026-02-16 12:34:50.169 | INFO     | __main__:_train:174 - [34mTrain: Acc: 0.97358, Macro F1: 0.97236, Macro Prec: 0.97349, Macro Rec: 0.97129
+2026-02-16 12:34:50.170 | INFO     | __main__:_train:175 - [34mTrain: A F1: 0.97817, A Prec: 0.97391, A Rec: 0.98246
+2026-02-16 12:34:50.170 | INFO     | __main__:_train:176 - [34mTrain: B F1: 0.96656, B Prec: 0.97306, B Rec: 0.96013
+2026-02-16 12:34:50.482 | INFO     | __main__:_valid:211 - [33mValid: Loss: 0.91074
+2026-02-16 12:34:50.482 | INFO     | __main__:_valid:212 - [33mValid: Acc: 0.77982, Macro F1: 0.76044, Macro Prec: 0.77761, Macro Rec: 0.75335
+2026-02-16 12:34:50.482 | INFO     | __main__:_valid:213 - [33mValid: A F1: 0.82857, A Prec: 0.78378, A Rec: 0.87879
+2026-02-16 12:34:50.482 | INFO     | __main__:_valid:214 - [33mValid: B F1: 0.69231, B Prec: 0.77143, B Rec: 0.62791
+2026-02-16 12:34:51.122 | INFO     | __main__:_valid:211 - [31mTest: Loss: 0.74599
+2026-02-16 12:34:51.122 | INFO     | __main__:_valid:212 - [31mTest: Acc: 0.80184, Macro F1: 0.78423, Macro Prec: 0.80774, Macro Rec: 0.77569
+2026-02-16 12:34:51.122 | INFO     | __main__:_valid:213 - [31mTest: A F1: 0.84588, A Prec: 0.79195, A Rec: 0.90769
+2026-02-16 12:34:51.122 | INFO     | __main__:_valid:214 - [31mTest: B F1: 0.72258, B Prec: 0.82353, B Rec: 0.64368
+2026-02-16 12:34:51.123 | INFO     | __main__:run:103 - Current Epoch: 29
+2026-02-16 12:34:53.115 | INFO     | __main__:_train:172 - [34mTrain: Loss: 0.22115268309911093
+2026-02-16 12:34:53.115 | INFO     | __main__:_train:174 - [34mTrain: Acc: 0.97358, Macro F1: 0.97233, Macro Prec: 0.97407, Macro Rec: 0.97073
+2026-02-16 12:34:53.116 | INFO     | __main__:_train:175 - [34mTrain: A F1: 0.97821, A Prec: 0.97186, A Rec: 0.98465
+2026-02-16 12:34:53.116 | INFO     | __main__:_train:176 - [34mTrain: B F1: 0.96644, B Prec: 0.97627, B Rec: 0.95681
+2026-02-16 12:34:53.441 | INFO     | __main__:_valid:211 - [33mValid: Loss: 0.90318
+2026-02-16 12:34:53.442 | INFO     | __main__:_valid:212 - [33mValid: Acc: 0.78899, Macro F1: 0.77824, Macro Prec: 0.77950, Macro Rec: 0.77713
+2026-02-16 12:34:53.442 | INFO     | __main__:_valid:213 - [33mValid: A F1: 0.82707, A Prec: 0.82090, A Rec: 0.83333
+2026-02-16 12:34:53.442 | INFO     | __main__:_valid:214 - [33mValid: B F1: 0.72941, B Prec: 0.73810, B Rec: 0.72093
+2026-02-16 12:34:54.084 | INFO     | __main__:_valid:211 - [31mTest: Loss: 0.73952
+2026-02-16 12:34:54.085 | INFO     | __main__:_valid:212 - [31mTest: Acc: 0.80645, Macro F1: 0.79417, Macro Prec: 0.80325, Macro Rec: 0.78904
+2026-02-16 12:34:54.085 | INFO     | __main__:_valid:213 - [31mTest: A F1: 0.84444, A Prec: 0.81429, A Rec: 0.87692
+2026-02-16 12:34:54.085 | INFO     | __main__:_valid:214 - [31mTest: B F1: 0.74390, B Prec: 0.79221, B Rec: 0.70115
+2026-02-16 12:34:54.085 | INFO     | __main__:run:103 - Current Epoch: 30
+2026-02-16 12:34:56.087 | INFO     | __main__:_train:172 - [34mTrain: Loss: 0.20538374036550522
+2026-02-16 12:34:56.087 | INFO     | __main__:_train:174 - [34mTrain: Acc: 0.98547, Macro F1: 0.98482, Macro Prec: 0.98510, Macro Rec: 0.98455
+2026-02-16 12:34:56.087 | INFO     | __main__:_train:175 - [34mTrain: A F1: 0.98795, A Prec: 0.98687, A Rec: 0.98904
+2026-02-16 12:34:56.087 | INFO     | __main__:_train:176 - [34mTrain: B F1: 0.98170, B Prec: 0.98333, B Rec: 0.98007
+2026-02-16 12:34:56.536 | INFO     | __main__:_valid:211 - [33mValid: Loss: 0.91173
+2026-02-16 12:34:56.536 | INFO     | __main__:_valid:212 - [33mValid: Acc: 0.77982, Macro F1: 0.76542, Macro Prec: 0.77179, Macro Rec: 0.76145
+2026-02-16 12:34:56.536 | INFO     | __main__:_valid:213 - [33mValid: A F1: 0.82353, A Prec: 0.80000, A Rec: 0.84848
+2026-02-16 12:34:56.536 | INFO     | __main__:_valid:214 - [33mValid: B F1: 0.70732, B Prec: 0.74359, B Rec: 0.67442
+2026-02-16 12:34:57.157 | INFO     | __main__:_valid:211 - [31mTest: Loss: 0.77762
+2026-02-16 12:34:57.157 | INFO     | __main__:_valid:212 - [31mTest: Acc: 0.78802, Macro F1: 0.77457, Macro Prec: 0.78312, Macro Rec: 0.76985
+2026-02-16 12:34:57.158 | INFO     | __main__:_valid:213 - [31mTest: A F1: 0.82963, A Prec: 0.80000, A Rec: 0.86154
+2026-02-16 12:34:57.158 | INFO     | __main__:_valid:214 - [31mTest: B F1: 0.71951, B Prec: 0.76623, B Rec: 0.67816
+2026-02-16 12:34:57.158 | INFO     | __main__:run:103 - Current Epoch: 31
+2026-02-16 12:34:59.144 | INFO     | __main__:_train:172 - [34mTrain: Loss: 0.19867677489916483
+2026-02-16 12:34:59.144 | INFO     | __main__:_train:174 - [34mTrain: Acc: 0.98943, Macro F1: 0.98894, Macro Prec: 0.99011, Macro Rec: 0.98784
+2026-02-16 12:34:59.144 | INFO     | __main__:_train:175 - [34mTrain: A F1: 0.99127, A Prec: 0.98696, A Rec: 0.99561
+2026-02-16 12:34:59.144 | INFO     | __main__:_train:176 - [34mTrain: B F1: 0.98662, B Prec: 0.99327, B Rec: 0.98007
+2026-02-16 12:34:59.462 | INFO     | __main__:_valid:211 - [33mValid: Loss: 0.96697
+2026-02-16 12:34:59.462 | INFO     | __main__:_valid:212 - [33mValid: Acc: 0.78899, Macro F1: 0.77626, Macro Prec: 0.78080, Macro Rec: 0.77308
+2026-02-16 12:34:59.462 | INFO     | __main__:_valid:213 - [33mValid: A F1: 0.82963, A Prec: 0.81159, A Rec: 0.84848
+2026-02-16 12:34:59.462 | INFO     | __main__:_valid:214 - [33mValid: B F1: 0.72289, B Prec: 0.75000, B Rec: 0.69767
+2026-02-16 12:35:00.100 | INFO     | __main__:_valid:211 - [31mTest: Loss: 0.80182
+2026-02-16 12:35:00.100 | INFO     | __main__:_valid:212 - [31mTest: Acc: 0.80184, Macro F1: 0.78660, Macro Prec: 0.80278, Macro Rec: 0.77949
+2026-02-16 12:35:00.101 | INFO     | __main__:_valid:213 - [31mTest: A F1: 0.84364, A Prec: 0.80000, A Rec: 0.89231
+2026-02-16 12:35:00.101 | INFO     | __main__:_valid:214 - [31mTest: B F1: 0.72956, B Prec: 0.80556, B Rec: 0.66667
+2026-02-16 12:35:00.101 | INFO     | __main__:run:103 - Current Epoch: 32
+2026-02-16 12:35:02.084 | INFO     | __main__:_train:172 - [34mTrain: Loss: 0.18764571597178778
+2026-02-16 12:35:02.085 | INFO     | __main__:_train:174 - [34mTrain: Acc: 0.98943, Macro F1: 0.98896, Macro Prec: 0.98952, Macro Rec: 0.98840
+2026-02-16 12:35:02.085 | INFO     | __main__:_train:175 - [34mTrain: A F1: 0.99125, A Prec: 0.98908, A Rec: 0.99342
+2026-02-16 12:35:02.085 | INFO     | __main__:_train:176 - [34mTrain: B F1: 0.98667, B Prec: 0.98997, B Rec: 0.98339
+2026-02-16 12:35:02.411 | INFO     | __main__:_valid:211 - [33mValid: Loss: 0.94110
+2026-02-16 12:35:02.411 | INFO     | __main__:_valid:212 - [33mValid: Acc: 0.77982, Macro F1: 0.77433, Macro Prec: 0.77194, Macro Rec: 0.78171
+2026-02-16 12:35:02.411 | INFO     | __main__:_valid:213 - [33mValid: A F1: 0.80952, A Prec: 0.85000, A Rec: 0.77273
+2026-02-16 12:35:02.411 | INFO     | __main__:_valid:214 - [33mValid: B F1: 0.73913, B Prec: 0.69388, B Rec: 0.79070
+2026-02-16 12:35:03.036 | INFO     | __main__:_valid:211 - [31mTest: Loss: 0.79242
+2026-02-16 12:35:03.036 | INFO     | __main__:_valid:212 - [31mTest: Acc: 0.79724, Macro F1: 0.79047, Macro Prec: 0.78877, Macro Rec: 0.79275
+2026-02-16 12:35:03.036 | INFO     | __main__:_valid:213 - [31mTest: A F1: 0.82812, A Prec: 0.84127, A Rec: 0.81538
+2026-02-16 12:35:03.037 | INFO     | __main__:_valid:214 - [31mTest: B F1: 0.75281, B Prec: 0.73626, B Rec: 0.77011
+2026-02-16 12:35:03.037 | INFO     | __main__:run:103 - Current Epoch: 33
+2026-02-16 12:35:05.032 | INFO     | __main__:_train:172 - [34mTrain: Loss: 0.18342986206213632
+2026-02-16 12:35:05.032 | INFO     | __main__:_train:174 - [34mTrain: Acc: 0.99339, Macro F1: 0.99309, Macro Prec: 0.99396, Macro Rec: 0.99226
+2026-02-16 12:35:05.032 | INFO     | __main__:_train:175 - [34mTrain: A F1: 0.99454, A Prec: 0.99129, A Rec: 0.99781
+2026-02-16 12:35:05.032 | INFO     | __main__:_train:176 - [34mTrain: B F1: 0.99165, B Prec: 0.99664, B Rec: 0.98671
+2026-02-16 12:35:05.340 | INFO     | __main__:_valid:211 - [33mValid: Loss: 1.00543
+2026-02-16 12:35:05.340 | INFO     | __main__:_valid:212 - [33mValid: Acc: 0.78899, Macro F1: 0.77824, Macro Prec: 0.77950, Macro Rec: 0.77713
+2026-02-16 12:35:05.341 | INFO     | __main__:_valid:213 - [33mValid: A F1: 0.82707, A Prec: 0.82090, A Rec: 0.83333
+2026-02-16 12:35:05.341 | INFO     | __main__:_valid:214 - [33mValid: B F1: 0.72941, B Prec: 0.73810, B Rec: 0.72093
+2026-02-16 12:35:05.977 | INFO     | __main__:_valid:211 - [31mTest: Loss: 0.81868
+2026-02-16 12:35:05.977 | INFO     | __main__:_valid:212 - [31mTest: Acc: 0.79263, Macro F1: 0.77999, Macro Prec: 0.78749, Macro Rec: 0.77560
+2026-02-16 12:35:05.977 | INFO     | __main__:_valid:213 - [31mTest: A F1: 0.83271, A Prec: 0.80576, A Rec: 0.86154
+2026-02-16 12:35:05.977 | INFO     | __main__:_valid:214 - [31mTest: B F1: 0.72727, B Prec: 0.76923, B Rec: 0.68966
+2026-02-16 12:35:05.978 | INFO     | __main__:run:103 - Current Epoch: 34
+2026-02-16 12:35:07.977 | INFO     | __main__:_train:172 - [34mTrain: Loss: 0.17520507921775183
+2026-02-16 12:35:07.977 | INFO     | __main__:_train:174 - [34mTrain: Acc: 0.99207, Macro F1: 0.99172, Macro Prec: 0.99229, Macro Rec: 0.99116
+2026-02-16 12:35:07.977 | INFO     | __main__:_train:175 - [34mTrain: A F1: 0.99344, A Prec: 0.99127, A Rec: 0.99561
+2026-02-16 12:35:07.978 | INFO     | __main__:_train:176 - [34mTrain: B F1: 0.99000, B Prec: 0.99331, B Rec: 0.98671
+2026-02-16 12:35:08.307 | INFO     | __main__:_valid:211 - [33mValid: Loss: 1.08047
+2026-02-16 12:35:08.308 | INFO     | __main__:_valid:212 - [33mValid: Acc: 0.77064, Macro F1: 0.76265, Macro Prec: 0.76052, Macro Rec: 0.76603
+2026-02-16 12:35:08.308 | INFO     | __main__:_valid:213 - [33mValid: A F1: 0.80620, A Prec: 0.82540, A Rec: 0.78788
+2026-02-16 12:35:08.308 | INFO     | __main__:_valid:214 - [33mValid: B F1: 0.71910, B Prec: 0.69565, B Rec: 0.74419
+2026-02-16 12:35:08.934 | INFO     | __main__:_valid:211 - [31mTest: Loss: 0.89662
+2026-02-16 12:35:08.934 | INFO     | __main__:_valid:212 - [31mTest: Acc: 0.80645, Macro F1: 0.79854, Macro Prec: 0.79854, Macro Rec: 0.79854
+2026-02-16 12:35:08.934 | INFO     | __main__:_valid:213 - [31mTest: A F1: 0.83846, A Prec: 0.83846, A Rec: 0.83846
+2026-02-16 12:35:08.934 | INFO     | __main__:_valid:214 - [31mTest: B F1: 0.75862, B Prec: 0.75862, B Rec: 0.75862
+2026-02-16 12:35:08.936 | INFO     | __main__:run:103 - Current Epoch: 35
+2026-02-16 12:35:10.995 | INFO     | __main__:_train:172 - [34mTrain: Loss: 0.17292661716540655
+2026-02-16 12:35:10.995 | INFO     | __main__:_train:174 - [34mTrain: Acc: 0.99736, Macro F1: 0.99724, Macro Prec: 0.99782, Macro Rec: 0.99668
+2026-02-16 12:35:10.995 | INFO     | __main__:_train:175 - [34mTrain: A F1: 0.99781, A Prec: 0.99563, A Rec: 1.00000
+2026-02-16 12:35:10.995 | INFO     | __main__:_train:176 - [34mTrain: B F1: 0.99667, B Prec: 1.00000, B Rec: 0.99336
+2026-02-16 12:35:11.372 | INFO     | __main__:_valid:211 - [33mValid: Loss: 1.07547
+2026-02-16 12:35:11.372 | INFO     | __main__:_valid:212 - [33mValid: Acc: 0.78899, Macro F1: 0.78003, Macro Prec: 0.77902, Macro Rec: 0.78118
+2026-02-16 12:35:11.372 | INFO     | __main__:_valid:213 - [33mValid: A F1: 0.82443, A Prec: 0.83077, A Rec: 0.81818
+2026-02-16 12:35:11.372 | INFO     | __main__:_valid:214 - [33mValid: B F1: 0.73563, B Prec: 0.72727, B Rec: 0.74419
+2026-02-16 12:35:12.004 | INFO     | __main__:_valid:211 - [31mTest: Loss: 0.89025
+2026-02-16 12:35:12.005 | INFO     | __main__:_valid:212 - [31mTest: Acc: 0.80184, Macro F1: 0.79073, Macro Prec: 0.79626, Macro Rec: 0.78709
+2026-02-16 12:35:12.005 | INFO     | __main__:_valid:213 - [31mTest: A F1: 0.83895, A Prec: 0.81752, A Rec: 0.86154
+2026-02-16 12:35:12.005 | INFO     | __main__:_valid:214 - [31mTest: B F1: 0.74251, B Prec: 0.77500, B Rec: 0.71264
+2026-02-16 12:35:12.006 | INFO     | __main__:run:103 - Current Epoch: 36
+2026-02-16 12:35:14.076 | INFO     | __main__:_train:172 - [34mTrain: Loss: 0.16486467917760214
+2026-02-16 12:35:14.076 | INFO     | __main__:_train:174 - [34mTrain: Acc: 0.99472, Macro F1: 0.99448, Macro Prec: 0.99505, Macro Rec: 0.99392
+2026-02-16 12:35:14.076 | INFO     | __main__:_train:175 - [34mTrain: A F1: 0.99562, A Prec: 0.99345, A Rec: 0.99781
+2026-02-16 12:35:14.076 | INFO     | __main__:_train:176 - [34mTrain: B F1: 0.99333, B Prec: 0.99666, B Rec: 0.99003
+2026-02-16 12:35:14.392 | INFO     | __main__:_valid:211 - [33mValid: Loss: 1.11633
+2026-02-16 12:35:14.392 | INFO     | __main__:_valid:212 - [33mValid: Acc: 0.77064, Macro F1: 0.75896, Macro Prec: 0.76013, Macro Rec: 0.75793
+2026-02-16 12:35:14.392 | INFO     | __main__:_valid:213 - [33mValid: A F1: 0.81203, A Prec: 0.80597, A Rec: 0.81818
+2026-02-16 12:35:14.392 | INFO     | __main__:_valid:214 - [33mValid: B F1: 0.70588, B Prec: 0.71429, B Rec: 0.69767
+2026-02-16 12:35:15.031 | INFO     | __main__:_valid:211 - [31mTest: Loss: 0.92794
+2026-02-16 12:35:15.032 | INFO     | __main__:_valid:212 - [31mTest: Acc: 0.81106, Macro F1: 0.79859, Macro Prec: 0.80912, Macro Rec: 0.79288
+2026-02-16 12:35:15.032 | INFO     | __main__:_valid:213 - [31mTest: A F1: 0.84871, A Prec: 0.81560, A Rec: 0.88462
+2026-02-16 12:35:15.032 | INFO     | __main__:_valid:214 - [31mTest: B F1: 0.74847, B Prec: 0.80263, B Rec: 0.70115
+2026-02-16 12:35:15.033 | INFO     | __main__:run:103 - Current Epoch: 37
+2026-02-16 12:35:17.075 | INFO     | __main__:_train:172 - [34mTrain: Loss: 0.15749271462361017
+2026-02-16 12:35:17.075 | INFO     | __main__:_train:174 - [34mTrain: Acc: 0.99868, Macro F1: 0.99862, Macro Prec: 0.99891, Macro Rec: 0.99834
+2026-02-16 12:35:17.075 | INFO     | __main__:_train:175 - [34mTrain: A F1: 0.99890, A Prec: 0.99781, A Rec: 1.00000
+2026-02-16 12:35:17.075 | INFO     | __main__:_train:176 - [34mTrain: B F1: 0.99834, B Prec: 1.00000, B Rec: 0.99668
+2026-02-16 12:35:17.418 | INFO     | __main__:_valid:211 - [33mValid: Loss: 1.27594
+2026-02-16 12:35:17.419 | INFO     | __main__:_valid:212 - [33mValid: Acc: 0.78899, Macro F1: 0.76909, Macro Prec: 0.79039, Macro Rec: 0.76092
+2026-02-16 12:35:17.419 | INFO     | __main__:_valid:213 - [33mValid: A F1: 0.83688, A Prec: 0.78667, A Rec: 0.89394
+2026-02-16 12:35:17.419 | INFO     | __main__:_valid:214 - [33mValid: B F1: 0.70130, B Prec: 0.79412, B Rec: 0.62791
+2026-02-16 12:35:18.067 | INFO     | __main__:_valid:211 - [31mTest: Loss: 1.06387
+2026-02-16 12:35:18.067 | INFO     | __main__:_valid:212 - [31mTest: Acc: 0.81106, Macro F1: 0.79652, Macro Prec: 0.81317, Macro Rec: 0.78908
+2026-02-16 12:35:18.067 | INFO     | __main__:_valid:213 - [31mTest: A F1: 0.85091, A Prec: 0.80690, A Rec: 0.90000
+2026-02-16 12:35:18.067 | INFO     | __main__:_valid:214 - [31mTest: B F1: 0.74214, B Prec: 0.81944, B Rec: 0.67816
+2026-02-16 12:35:18.068 | INFO     | __main__:run:103 - Current Epoch: 38
+2026-02-16 12:35:20.109 | INFO     | __main__:_train:172 - [34mTrain: Loss: 0.16445184499025345
+2026-02-16 12:35:20.110 | INFO     | __main__:_train:174 - [34mTrain: Acc: 0.99207, Macro F1: 0.99173, Macro Prec: 0.99173, Macro Rec: 0.99173
+2026-02-16 12:35:20.110 | INFO     | __main__:_train:175 - [34mTrain: A F1: 0.99342, A Prec: 0.99342, A Rec: 0.99342
+2026-02-16 12:35:20.110 | INFO     | __main__:_train:176 - [34mTrain: B F1: 0.99003, B Prec: 0.99003, B Rec: 0.99003
+2026-02-16 12:35:20.430 | INFO     | __main__:_valid:211 - [33mValid: Loss: 1.39464
+2026-02-16 12:35:20.432 | INFO     | __main__:_valid:212 - [33mValid: Acc: 0.77064, Macro F1: 0.73495, Macro Prec: 0.79657, Macro Rec: 0.72551
+2026-02-16 12:35:20.432 | INFO     | __main__:_valid:213 - [33mValid: A F1: 0.83221, A Prec: 0.74699, A Rec: 0.93939
+2026-02-16 12:35:20.432 | INFO     | __main__:_valid:214 - [33mValid: B F1: 0.63768, B Prec: 0.84615, B Rec: 0.51163
+2026-02-16 12:35:21.073 | INFO     | __main__:_valid:211 - [31mTest: Loss: 1.21058
+2026-02-16 12:35:21.075 | INFO     | __main__:_valid:212 - [31mTest: Acc: 0.81106, Macro F1: 0.78912, Macro Prec: 0.83339, Macro Rec: 0.77767
+2026-02-16 12:35:21.075 | INFO     | __main__:_valid:213 - [31mTest: A F1: 0.85714, A Prec: 0.78344, A Rec: 0.94615
+2026-02-16 12:35:21.075 | INFO     | __main__:_valid:214 - [31mTest: B F1: 0.72109, B Prec: 0.88333, B Rec: 0.60920
+2026-02-16 12:35:21.076 | INFO     | __main__:run:103 - Current Epoch: 39
+2026-02-16 12:35:23.102 | INFO     | __main__:_train:172 - [34mTrain: Loss: 0.22048161178827286
+2026-02-16 12:35:23.103 | INFO     | __main__:_train:174 - [34mTrain: Acc: 0.95773, Macro F1: 0.95583, Macro Prec: 0.95636, Macro Rec: 0.95531
+2026-02-16 12:35:23.103 | INFO     | __main__:_train:175 - [34mTrain: A F1: 0.96499, A Prec: 0.96288, A Rec: 0.96711
+2026-02-16 12:35:23.103 | INFO     | __main__:_train:176 - [34mTrain: B F1: 0.94667, B Prec: 0.94983, B Rec: 0.94352
+2026-02-16 12:35:23.416 | INFO     | __main__:_valid:211 - [33mValid: Loss: 0.95767
+2026-02-16 12:35:23.416 | INFO     | __main__:_valid:212 - [33mValid: Acc: 0.77064, Macro F1: 0.75681, Macro Prec: 0.76105, Macro Rec: 0.75388
+2026-02-16 12:35:23.416 | INFO     | __main__:_valid:213 - [33mValid: A F1: 0.81481, A Prec: 0.79710, A Rec: 0.83333
+2026-02-16 12:35:23.416 | INFO     | __main__:_valid:214 - [33mValid: B F1: 0.69880, B Prec: 0.72500, B Rec: 0.67442
+2026-02-16 12:35:24.061 | INFO     | __main__:_valid:211 - [31mTest: Loss: 1.07670
+2026-02-16 12:35:24.062 | INFO     | __main__:_valid:212 - [31mTest: Acc: 0.77419, Macro F1: 0.75808, Macro Prec: 0.76999, Macro Rec: 0.75261
+2026-02-16 12:35:24.062 | INFO     | __main__:_valid:213 - [31mTest: A F1: 0.82051, A Prec: 0.78322, A Rec: 0.86154
+2026-02-16 12:35:24.062 | INFO     | __main__:_valid:214 - [31mTest: B F1: 0.69565, B Prec: 0.75676, B Rec: 0.64368
+2026-02-16 12:35:24.063 | INFO     | __main__:run:103 - Current Epoch: 40
+2026-02-16 12:35:26.095 | INFO     | __main__:_train:172 - [34mTrain: Loss: 0.17946444948514303
+2026-02-16 12:35:26.096 | INFO     | __main__:_train:174 - [34mTrain: Acc: 0.98151, Macro F1: 0.98074, Macro Prec: 0.97971, Macro Rec: 0.98183
+2026-02-16 12:35:26.096 | INFO     | __main__:_train:175 - [34mTrain: A F1: 0.98458, A Prec: 0.98894, A Rec: 0.98026
+2026-02-16 12:35:26.096 | INFO     | __main__:_train:176 - [34mTrain: B F1: 0.97690, B Prec: 0.97049, B Rec: 0.98339
+2026-02-16 12:35:26.429 | INFO     | __main__:_valid:211 - [33mValid: Loss: 1.05638
+2026-02-16 12:35:26.429 | INFO     | __main__:_valid:212 - [33mValid: Acc: 0.72477, Macro F1: 0.69313, Macro Prec: 0.72022, Macro Rec: 0.68763
+2026-02-16 12:35:26.429 | INFO     | __main__:_valid:213 - [33mValid: A F1: 0.79167, A Prec: 0.73077, A Rec: 0.86364
+2026-02-16 12:35:26.429 | INFO     | __main__:_valid:214 - [33mValid: B F1: 0.59459, B Prec: 0.70968, B Rec: 0.51163
+2026-02-16 12:35:26.430 | INFO     | __main__:run:108 - [32mEarly stopping at epoch 40
+2026-02-16 12:35:26.430 | INFO     | __main__:run:116 - [31mBest of Acc in fold default:
+2026-02-16 12:35:27.221 | INFO     | __main__:_valid:211 - [31mTest: Loss: 0.58614
+2026-02-16 12:35:27.221 | INFO     | __main__:_valid:212 - [31mTest: Acc: 0.81567, Macro F1: 0.80301, Macro Prec: 0.81512, Macro Rec: 0.79673
+2026-02-16 12:35:27.221 | INFO     | __main__:_valid:213 - [31mTest: A F1: 0.85294, A Prec: 0.81690, A Rec: 0.89231
+2026-02-16 12:35:27.221 | INFO     | __main__:_valid:214 - [31mTest: B F1: 0.75309, B Prec: 0.81333, B Rec: 0.70115
+2026-02-16 12:35:27.222 | INFO     | __main__:run:134 - Best of Acc in all fold: 0.8156682252883911, Best F1: 0.803013801574707, Best Precision: 0.815117359161377, Best Recall: 0.7967285513877869
+2026-02-16 12:35:27.222 | INFO     | __main__:run:135 - Best of A F1 in all fold: 0.8529411554336548, Best A Precision: 0.8169013857841492, Best A Recall: 0.892307698726654
+2026-02-16 12:35:27.222 | INFO     | __main__:run:136 - Best of B F1 in all fold: 0.7530864477157593, Best B Precision: 0.8133333325386047, Best B Recall: 0.7011494040489197
