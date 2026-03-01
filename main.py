@@ -870,7 +870,7 @@ class EntropyBasedRetriever:
 class StableAnchorAlignment:
     """稳定锚点对齐模块 - 统一维度版本"""
 
-    def __init__(self, align_loss_weight=0.1):
+    def __init__(self, align_loss_weight):
         self.align_loss_weight = align_loss_weight
 
     def _normalize_to_2d(self, tensor):
