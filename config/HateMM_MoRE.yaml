@@ -126,8 +126,12 @@ para:
   num_neg: 90
   dropout: 0.3                    # 添加dropout
 
+  # CrossAttention（默认开启：不改变当前性能）
+  use_cross_attention: true
+  alpha_interact: 0.05
+
   #RADAR
-  use_radar: true                     # 开启RADAR
+  use_radar: false                    # 开启RADAR
   radar_at_test: true                  # 测试时也使用
   memory_size: 1024                    # 记忆库大小
   entropy_threshold: 0.1                # 熵阈值（保守）
@@ -153,4 +157,4 @@ seed: 2024
 model: MoRE
 dataset: HateMM
 type: default
-patience: 7
+patience: 5
