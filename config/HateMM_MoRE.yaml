@@ -131,7 +131,7 @@ para:
   alpha_interact: 0.05
 
   #RADAR
-  use_radar: false                    # 开启RADAR
+  use_radar: true                    # 开启RADAR
   radar_at_test: true                  # 测试时也使用
   memory_size: 1024                    # 记忆库大小
   entropy_threshold: 0.1                # 熵阈值（保守）
