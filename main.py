@@ -499,9 +499,6 @@ from torch.utils.data import DataLoader, Dataset
 from tqdm import tqdm
 from pathlib import Path
 from collections import deque
-import copy
-# import winsound
-
 from utils.core_utils import (
     get_collator,
     get_dataset,
@@ -1222,13 +1219,15 @@ def main(cfg: DictConfig):
     colorama.init()
     set_seed(cfg.seed)
 
-    # 根据配置选择使用普通Trainer还是RADAR增强的Trainer
+
     if cfg.para.get('use_radar', False):
         logger.info(f"{Fore.GREEN}Using RADAR-enhanced Trainer")
         trainer = MoRERADARTrainer(cfg)
     else:
         logger.info(f"{Fore.GREEN}Using standard Trainer")
         trainer = Trainer(cfg)
+    if cfg.para.get('use_cross_attention', True):
+        logger.info(f"{Fore.GREEN}Using Cross-Attention Trainer")
 
     trainer.run()
 
