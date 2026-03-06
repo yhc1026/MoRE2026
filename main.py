@@ -625,6 +625,17 @@ class Trainer():
             logger.info(
                 f'Best of C F1 in all fold: {np.mean(c_f1_list)}, Best C Precision: {np.mean(c_prec_list)}, Best C Recall: {np.mean(c_rec_list)}')
         # winsound.Beep(500, 1000)
+        result = {
+            'acc': float(np.mean(acc_list)),
+            'macro_f1': float(np.mean(f1_list)),
+            'macro_prec': float(np.mean(prec_list)),
+            'macro_rec': float(np.mean(rec_list)),
+            'a_f1': float(np.mean(a_f1_list)),
+            'b_f1': float(np.mean(b_f1_list)),
+        }
+        if self.task == 'ternary':
+            result['c_f1'] = float(np.mean(c_f1_list))
+        return result
 
     def _train(self, epoch: int):
         loss_list = []

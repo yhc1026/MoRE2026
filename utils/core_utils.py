@@ -30,7 +30,7 @@ class WarmUpStepLR(_LRScheduler):
         if step is None:
             step = self.last_step + 1
         self.last_step = step
-        self.last_epoch = step 
+        self.last_epoch = step
         for param_group, lr in zip(self.optimizer.param_groups, self.get_lr()):
             param_group['lr'] = lr
 
@@ -104,6 +104,7 @@ def get_dataset(model_name: str, dataset_name: str, **kargs):
 
     return dataset
 
+
 def get_collator(model_name: str, dataset_name: str, **kargs):
     try:
         # Attempt to import the module
@@ -124,12 +125,14 @@ def get_collator(model_name: str, dataset_name: str, **kargs):
         # Attempt to instantiate the model
         collator = collator_class(**kargs)
     except TypeError as e:
-        raise TypeError(f"Error instantiating collator '{dataset_name}': {str(e)}. Please check the provided arguments.")
+        raise TypeError(
+            f"Error instantiating collator '{dataset_name}': {str(e)}. Please check the provided arguments.")
 
     # Set the model name
     collator.name = dataset_name
 
     return collator
+
 
 def get_optimizer(model: nn.Module, **kargs):
     optimizer_name = kargs.pop('name')
@@ -143,6 +146,7 @@ def get_optimizer(model: nn.Module, **kargs):
             raise NotImplementedError(f"Optimizer {optimizer_name} not implemented")
     return optimizer(model.parameters(), **kargs)
 
+
 def get_scheduler(optimizer, **kargs):
     scheduler_name = kargs.pop('name')
     scheduler = None
@@ -153,6 +157,7 @@ def get_scheduler(optimizer, **kargs):
             def lr_lambda(step):
                 p = float(step) / (100 * kargs['steps_per_epoch'])
                 return 1. / (1. + 10 * p) ** 0.75
+
             scheduler = torch.optim.lr_scheduler.LambdaLR(optimizer, lr_lambda=lr_lambda)
         case "DummyLR":
             scheduler = LambdaLR(optimizer, lambda x: 1)
@@ -276,14 +281,14 @@ class EarlyStopping:
         Args:
             patience (int): How long to wait after last time validation loss improved.
                             Default: 7
-            verbose (bool): If True, prints a message for each validation loss improvement. 
+            verbose (bool): If True, prints a message for each validation loss improvement.
                             Default: False
             delta (float): Minimum change in the monitored quantity to qualify as an improvement.
                             Default: 0
             path (str): Path for the checkpoint to be saved to.
                             Default: 'checkpoint.pt'
             trace_func (function): trace print function.
-                            Default: print            
+                            Default: print
         """
         self.patience = patience
         self.verbose = verbose
@@ -314,6 +319,7 @@ class EarlyStopping:
     def save_checkpoint(self, val_loss, model):
         '''Saves model when validation loss decrease.'''
         if self.verbose:
-            self.trace_func(f'Validation loss decreased ({self.val_loss_min:.6f} --> {val_loss:.6f}).  Saving model ...')
+            self.trace_func(
+                f'Validation loss decreased ({self.val_loss_min:.6f} --> {val_loss:.6f}).  Saving model ...')
         torch.save(model.state_dict(), self.path)
         self.val_loss_min = val_loss

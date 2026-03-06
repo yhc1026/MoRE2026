@@ -6,6 +6,7 @@ from transformers import AutoModel
 from einops import rearrange
 from .submodule import LearnablePositionalEncoding, check_shape, AttentivePooling
 from .crossAttention import CrossModalAttention
+from .GNN import ModalityGNN2L
 
 class ModalityFFN(nn.Module):
     def __init__(self, hid_dim):
@@ -28,7 +29,6 @@ class ModalityExpert(nn.Module):
         self.ablation = ablation
 
     def forward(self, query, pos, neg):
-        print(f"query: {query.shape}, \n pos: {pos.shape}, \n neg: {neg.shape}")
         if query.dim() == 2:
             query = query.unsqueeze(1)
         query = self.ffn(query)
@@ -228,6 +228,28 @@ class MoRE(nn.Module):
         self.ablation = ablation
         self.loss = loss
 
+        # GNN: 3-node modality graph → pooled summary; add to fusion with zero-init so baseline unchanged at init (can only improve)
+        self.use_gnn = bool(kargs.get('use_gnn', True))
+        gnn_heads = min(8, max(2, fea_dim // 16))
+        self.modality_gnn = ModalityGNN2L(
+            inChl=fea_dim,
+            outChl=fea_dim,
+            numHeads=gnn_heads,
+            dropout=dropout,
+        )
+        self.gnn_proj = nn.Linear(fea_dim, fea_dim)
+        nn.init.zeros_(self.gnn_proj.weight)
+        nn.init.zeros_(self.gnn_proj.bias)
+    def _build_modality_graph_edges(self, batch_size: int, device: torch.device):
+        """Full graph over 3 nodes per sample; returns (2, 6*batch_size) edge_index."""
+        rows, cols = [], []
+        for b in range(batch_size):
+            base = 3 * b
+            for i, j in [(0, 1), (0, 2), (1, 0), (1, 2), (2, 0), (2, 1)]:
+                rows.append(base + i)
+                cols.append(base + j)
+        return torch.tensor([rows, cols], dtype=torch.long, device=device)
+
     def forward(self, **inputs):
         text_fea = inputs['text_fea']
         audio_fea = inputs['audio_fea']
@@ -297,11 +319,25 @@ class MoRE(nn.Module):
         vision_fea_aug = self.vision_pooler(vision_fea_aug)
         audio_fea_aug = audio_fea_aug.mean(dim=1)
 
+        fea_orig = (text_fea_aug * weight[:, 0].unsqueeze(1) + vision_fea_aug * weight[:, 1].unsqueeze(1) + audio_fea_aug * weight[:, 2].unsqueeze(1))
+        if self.use_gnn:
+            B = text_fea_aug.size(0)
+            device = text_fea_aug.device
+            # detach so GNN gradients do not backprop into experts (preserve 82% path)
+            nodes = torch.stack([text_fea_aug.detach(), vision_fea_aug.detach(), audio_fea_aug.detach()], dim=1)
+            x_gnn = nodes.view(B * 3, -1)
+            edge_index = self._build_modality_graph_edges(B, device)
+            out_gnn = self.modality_gnn(x_gnn, edge_index).squeeze(0)
+            out_gnn = out_gnn.view(B, 3, -1)
+            gnn_summary = out_gnn.mean(dim=1)
+            fea = fea_orig + self.gnn_proj(gnn_summary)
+        else:
+            fea = fea_orig
+
         text_pred = self.text_preditor(text_fea_aug)
         vision_pred = self.vision_preditor(vision_fea_aug)
         audio_pred = self.audio_preditor(audio_fea_aug)
 
-        fea = (text_fea_aug * weight[:, 0].unsqueeze(1) + vision_fea_aug * weight[:, 1].unsqueeze(1) + audio_fea_aug * weight[:, 2].unsqueeze(1))
         output = self.classifier(fea)
 
         return {
