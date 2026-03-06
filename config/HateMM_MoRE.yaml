@@ -112,12 +112,14 @@
 ##RADAR
 data:
   task: binary
-  text_encoder: D:/code/LAB/my_MoRE_cloud/MoRE2026-Cloud/models/bert/bert-base-uncased
+#  text_encoder: /home/icdm/NewWorld/yhc/MoRE26/models/bert/bert-base-uncased
+  text_encoder: D:\code\LAB\my_MoRE_cloud\MoRE2026-Cloud\models\bert\bert-base-uncased
   num_pos: 30
   num_neg: 90
 
 para:
-  text_encoder: D:/code/LAB/my_MoRE_cloud/MoRE2026-Cloud/models/bert/bert-base-uncased
+#  text_encoder: /home/icdm/NewWorld/yhc/MoRE26/models/bert/bert-base-uncased
+  text_encoder: D:\code\LAB\my_MoRE_cloud\MoRE2026-Cloud\models\bert\bert-base-uncased
   fea_dim: 64                    # 降低特征维度
   num_epoch: 50
   delta: 0.4                      # 增加delta让正负样本更难区分
@@ -129,6 +131,10 @@ para:
   # CrossAttention（默认开启：不改变当前性能）
   use_cross_attention: true
   alpha_interact: 0.05
+
+  # GNN 模块开关（true：使用模态图融合；false：仅加权融合，不改变其余架构）
+  use_gnn: false
+
 
   #RADAR
   use_radar: true                    # 开启RADAR
@@ -146,15 +152,15 @@ para:
 opt:
   name: AdamW
   lr: 0.0007                       # 降低学习率
-  weight_decay: 0.002              # 增加权重衰减
+  weight_decay: 0.002              # 增加权重衰减  #0.02
 
 sche:
   name: DummyLR
 
 num_epoch: 50
 batch_size: 128
-seed: 2024
+seed: 1180
 model: MoRE
 dataset: HateMM
 type: default
-patience: 5
+patience: 5   #4/8
